@@ -16,7 +16,7 @@
         storageBucket: "loginwith-8506a.appspot.com",
         messagingSenderId: "437861183874",
       };
-      firebase.initializeApp(config);
+      // firebase.initializeApp(config);
     </script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
@@ -27,10 +27,21 @@
     />
   </head>
   <body>
-    <button onclick="googleSignin()">Google Signin</button>
-    <button onclick="googleSignout()">Google Signout</button>
+    <!-- <button onclick="googleSignin()">Google Signin</button>
+    <button onclick="googleSignout()">Google Signout</button> -->
     <div id="firebaseui-auth-container"></div>
-    <script src="assets/javascript/auth.js"></script>
-    <div id="loader">Loading...</div>
+    <script>
+      const uiConfig = {
+        signInSuccessUrl:
+          "https://moskowitza.github.io/firebaseLogin/account.html",
+        signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+        tosUrl: "https://moskowitza.github.io/firebaseLogin/account.html",
+      };
+      const app = firebase.initializeApp(config);
+      const auth = app.auth();
+      const ui = new firebaseui.auth.AuthUI(auth);
+
+      ui.start(`#firebaseui-auth-container`, uiConfig);
+    </script>
   </body>
 </html>

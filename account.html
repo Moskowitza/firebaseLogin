@@ -44,5 +44,14 @@
 
       ui.start(`#firebaseui-auth-container`, uiConfig);
     </script>
+    <button id="signOut">Sign Out</button>
+
+    <script>
+      document
+        .getElementById("signOut")
+        .addEventListener("click", function(event) {
+          firebase.auth().signOut();
+        });
+    </script>
   </body>
 </html>

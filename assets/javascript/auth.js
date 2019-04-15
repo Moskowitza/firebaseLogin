@@ -1,12 +1,6 @@
 const uiConfig = {
         signInSuccessUrl: 'https://moskowitza.github.io/firebaseLogin/account.html',
-        signInOptions: [
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-                firebase.auth.GithubAuthProvider.PROVIDER_ID,
-                firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        ],
+        signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
         tosUrl: 'https://moskowitza.github.io/firebaseLogin/account.html',
 };
 // const app = firebase.initializeApp(config);

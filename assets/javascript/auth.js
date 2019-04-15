@@ -34,3 +34,7 @@ const uiConfig = {
 const auth = app.auth();
 const ui = new firebaseui.auth.AuthUI(auth);
 ui.start(`#firebaseui-auth-container`, uiConfig);
+
+document.getElementById('signOut').addEventListener('click', function(event) {
+        firebase.auth().signOut();
+});

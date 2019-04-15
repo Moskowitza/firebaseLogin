@@ -34,7 +34,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 const { providerData } = user;
                 // ...
                 console.log(email);
-                window.location.assign('firebaseLogin/account.html');
+                window.location.assign('https://moskowitza.github.io/firebaseLogin/account.html');
         } else {
                 // User is signed out.
                 // ...

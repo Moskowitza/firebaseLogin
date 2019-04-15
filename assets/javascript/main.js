@@ -2,11 +2,12 @@ const provider = new firebase.auth.GoogleAuthProvider();
 console.log(`provider: ${provider}`);
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 console.log(`ui: ${ui}`);
-async function googleSignin() {
-        const user = await ui.start('#firebaseui-auth-container', {
+function googleSignin() {
+        ui.start('#firebaseui-auth-container', {
                 callbacks: {
                         signInSuccessWithAuthResult(authResult, redirectUrl) {
-                                console.log(authResult);
+                                console.log(`auth result: ${authResult}`);
+                                console.log(redirectUrl);
                                 // User successfully signed in.
                                 // Return type determines whether we continue the redirect automatically
                                 // or whether we leave that to developer to handle.

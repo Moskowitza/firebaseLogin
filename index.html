@@ -16,7 +16,7 @@
         storageBucket: "loginwith-8506a.appspot.com",
         messagingSenderId: "437861183874",
       };
-      // firebase.initializeApp(config);
+      const app = firebase.initializeApp(config);
     </script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
@@ -37,10 +37,9 @@
         signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
         tosUrl: "https://moskowitza.github.io/firebaseLogin/account.html",
       };
-      const app = firebase.initializeApp(config);
+
       const auth = app.auth();
       const ui = new firebaseui.auth.AuthUI(auth);
-
       ui.start(`#firebaseui-auth-container`, uiConfig);
     </script>
     <button id="signOut">Sign Out</button>

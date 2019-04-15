@@ -2,10 +2,11 @@ const provider = new firebase.auth.GoogleAuthProvider();
 console.log(`provider: ${provider}`);
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 console.log(`ui: ${ui}`);
-function googleSignin() {
-        ui.start('#firebaseui-auth-container', {
+async function googleSignin() {
+        const user = await ui.start('#firebaseui-auth-container', {
                 callbacks: {
                         signInSuccessWithAuthResult(authResult, redirectUrl) {
+                                console.log(authResult);
                                 // User successfully signed in.
                                 // Return type determines whether we continue the redirect automatically
                                 // or whether we leave that to developer to handle.
@@ -23,6 +24,7 @@ function googleSignin() {
                         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 ],
         });
+        checkUser(user);
 }
 function googleSignout() {
         firebase.auth()
@@ -34,6 +36,7 @@ function googleSignout() {
                         // An error happened.
                 });
 }
+
 firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
                 // User is signed in.
@@ -50,5 +53,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         } else {
                 // User is signed out.
                 // ...
+                console.log('no user');
         }
 });

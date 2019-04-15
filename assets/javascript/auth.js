@@ -28,7 +28,8 @@ const uiConfig = {
         },
         signInSuccessUrl: 'https://moskowitza.github.io/firebaseLogin/account.html',
         signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-        tosUrl: 'https://moskowitza.github.io/firebaseLogin/account.html',
+        tosUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
+        privacyPolicyUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
 };
 
 const auth = app.auth();

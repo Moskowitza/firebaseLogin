@@ -15,6 +15,7 @@ function googleSignout() {
                 .signOut()
                 .then(function() {
                         alert('Signed Out');
+                        window.location.assign('https://moskowitza.github.io/firebaseLogin/');
                 })
                 .catch(function(error) {
                         // An error happened.
@@ -34,7 +35,6 @@ firebase.auth().onAuthStateChanged(function(user) {
                 const { providerData } = user;
                 // ...
                 console.log(email);
-                window.location.assign('https://moskowitza.github.io/firebaseLogin/account.html');
         } else {
                 // User is signed out.
                 // ...

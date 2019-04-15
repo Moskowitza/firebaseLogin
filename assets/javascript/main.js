@@ -4,7 +4,7 @@ const ui = new firebaseui.auth.AuthUI(firebase.auth());
 console.log(`ui: ${ui}`);
 function googleSignin() {
         ui.start('#firebaseui-auth-container', {
-                signInSuccessUrl: 'https://moskowitza.github.io/firebaseLogin/account.html',
+                signInSuccessUrl: '/account.html',
                 signInOptions: [
                         // List of OAuth providers supported.
                         firebase.auth.GoogleAuthProvider.PROVIDER_ID,

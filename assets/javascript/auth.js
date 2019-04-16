@@ -48,15 +48,21 @@
         const ui = new firebaseui.auth.AuthUI(auth);
         ui.start(`#firebaseui-auth-container`, uiConfig);
 
-        document.getElementById('signOut').addEventListener('click', function(event) {
+        const signOutBtn = document.getElementById('signOut');
+        signOutBtn.addEventListener('click', function(event) {
                 alert('sign out');
                 firebase.auth().signOut();
         });
-        firebase.auth().onStateChanged(firebaseUser => {
-                if (firebaseUser) {
-                        console.log(firebaseUser);
+
+        firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                        // User is signed in.
+                        console.log(user);
+                        signOutBtn.classList.remove('hidden');
                 } else {
-                        console.log(`no User`);
+                        // No user is signed in.
+                        console.log('No User');
+                        signOutBtn.classList.add('hidden');
                 }
         });
 })();

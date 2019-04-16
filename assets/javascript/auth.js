@@ -12,8 +12,8 @@
         const uiConfig = {
                 callbacks: {
                         signInSuccessWithAuthResult(authResult, redirectUrl) {
-                                console.log(`authResult: ${JSON.parse(authResult)}`);
-                                console.log(`redirectUrl: ${JSON.parse(redirectUrl)}`);
+                                // console.log(`authResult: ${JSON.parse(authResult)}`);
+                                // console.log(`redirectUrl: ${JSON.parse(redirectUrl)}`);
                                 const { user } = authResult;
                                 const { credential } = authResult;
                                 const { isNewUser } = authResult.additionalUserInfo;
@@ -21,7 +21,7 @@
                                 const { operationType } = authResult;
                                 // Do something with the returned AuthResult.
                                 // Return type determines whether we continue the redirect automatically
-                                console.log(`user ${JSON.parse(user)}`);
+                                // console.log(`user ${JSON.parse(user)}`);
                                 // or whether we leave that to developer to handle.
                                 return true;
                         },

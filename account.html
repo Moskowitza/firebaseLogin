@@ -6,18 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Firebase Login</title>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo",
-        authDomain: "loginwith-8506a.firebaseapp.com",
-        databaseURL: "https://loginwith-8506a.firebaseio.com",
-        projectId: "loginwith-8506a",
-        storageBucket: "loginwith-8506a.appspot.com",
-        messagingSenderId: "437861183874",
-      };
-      firebase.initializeApp(config);
-    </script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link
@@ -27,9 +15,7 @@
     />
   </head>
   <body>
-    <div id="welcome">Welcome</div>
-    <!-- <button onclick="googleSignin()">Google Signin</button>
-    <button onclick="googleSignout()">Google Signout</button> -->
+    <div id="welcome">Welcome<span id="userName"></span></div>
     <div id="firebaseui-auth-container"></div>
     <button id="signOut">Sign Out</button>
     <div id="loader">...loading</div>

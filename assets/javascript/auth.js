@@ -1,10 +1,19 @@
 (function() {
-        // your page initialization code here
-        // the DOM will be available here
-
+        // Initialize Firebase
+        const config = {
+                apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
+                authDomain: 'loginwith-8506a.firebaseapp.com',
+                databaseURL: 'https://loginwith-8506a.firebaseio.com',
+                projectId: 'loginwith-8506a',
+                storageBucket: 'loginwith-8506a.appspot.com',
+                messagingSenderId: '437861183874',
+        };
+        const app = firebase.initializeApp(config);
         const uiConfig = {
                 callbacks: {
                         signInSuccessWithAuthResult(authResult, redirectUrl) {
+                                console.log(`authResult: ${authResult}`);
+                                console.log(`redirectUrl: ${redirectUrl}`);
                                 const { user } = authResult;
                                 const { credential } = authResult;
                                 const { isNewUser } = authResult.additionalUserInfo;
@@ -35,12 +44,19 @@
                 tosUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
                 privacyPolicyUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
         };
-
         const auth = app.auth();
         const ui = new firebaseui.auth.AuthUI(auth);
         ui.start(`#firebaseui-auth-container`, uiConfig);
 
         document.getElementById('signOut').addEventListener('click', function(event) {
+                alert('sign out');
                 firebase.auth().signOut();
+        });
+        firebase.auth().onStateChanged(firebaseUser => {
+                if (firebaseUser) {
+                        console.log(firebaseUser);
+                } else {
+                        console.log(`no User`);
+                }
         });
 })();

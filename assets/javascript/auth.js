@@ -71,7 +71,9 @@
                         console.log('No User');
                         signOutBtn.classList.add('hidden');
                         authWidget.classList.remove('hidden');
-                        welcomeSpan ? (welcomeSpan.innerHTML = '') : ;
+                        if (welcomeSpan) {
+                                welcomeSpan.innerHTML = '';
+                        }
                 }
         });
 })();

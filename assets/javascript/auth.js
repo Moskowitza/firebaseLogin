@@ -20,7 +20,7 @@
                                 const { providerId } = authResult.additionalUserInfo;
                                 const { operationType } = authResult;
                                 // Do something with the returned AuthResult.
-                                document.getElementById('userName').innerText = user;
+                                // document.getElementById('userName').innerText = user;
                                 // Return type determines whether we continue the redirect automatically
                                 // console.log(`user ${JSON.parse(user)}`);
                                 // or whether we leave that to developer to handle.

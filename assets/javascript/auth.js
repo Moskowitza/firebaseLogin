@@ -63,13 +63,15 @@
                         console.log(`HEllo user ${JSON.stringify(user)}`);
                         signOutBtn.classList.remove('hidden');
                         authWidget.classList.add('hidden');
-                        welcomeSpan.innerHTML = user.displayName;
+                        if (welcomeSpan) {
+                                welcomeSpan.innerHTML = user.displayName;
+                        }
                 } else {
                         // No user is signed in.
                         console.log('No User');
                         signOutBtn.classList.add('hidden');
                         authWidget.classList.remove('hidden');
-                        welcomeSpan.innerHTML = '';
+                        welcomeSpan ? (welcomeSpan.innerHTML = '') : ;
                 }
         });
 })();

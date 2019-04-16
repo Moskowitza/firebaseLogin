@@ -68,6 +68,8 @@
                         // No user is signed in.
                         console.log('No User');
                         signOutBtn.classList.add('hidden');
+                        authWidget.classList.remove('hidden');
+                        welcomeSpan.innerHTML = '';
                 }
         });
 })();

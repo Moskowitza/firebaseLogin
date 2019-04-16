@@ -21,7 +21,7 @@
                                 const { operationType } = authResult;
                                 // Do something with the returned AuthResult.
                                 // Return type determines whether we continue the redirect automatically
-                                alert(`hi ${user}`);
+                                alert(`hi ${user.displayName}`);
                                 // or whether we leave that to developer to handle.
                                 return true;
                         },

@@ -50,6 +50,7 @@
         ui.start(`#firebaseui-auth-container`, uiConfig);
 
         const signOutBtn = document.getElementById('signOut');
+        const authWidget = document.getElementById('firebaseui-auth-container');
         signOutBtn.addEventListener('click', function(event) {
                 alert('sign out');
                 firebase.auth().signOut();
@@ -60,6 +61,7 @@
                         // User is signed in.
                         console.log(user);
                         signOutBtn.classList.remove('hidden');
+                        authWidget.classList.add('hidden');
                 } else {
                         // No user is signed in.
                         console.log('No User');

@@ -9,6 +9,19 @@
                 messagingSenderId: '437861183874',
         };
         const app = firebase.initializeApp(config);
+        const db = app.firestore();
+        db.collection('users').add({
+                        first: 'Ada',
+                        last: 'Lovelace',
+                        born: 1815,
+                })
+                .then(function(docRef) {
+                        console.log('Document written with ID: ', docRef.id);
+                })
+                .catch(function(error) {
+                        console.error('Error adding document: ', error);
+                });
+
         const uiConfig = {
                 callbacks: {
                         signInSuccessWithAuthResult(authResult, redirectUrl) {

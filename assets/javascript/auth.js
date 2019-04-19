@@ -65,6 +65,8 @@ ui.start(`#firebaseui-auth-container`, uiConfig);
 const signOutBtn = document.getElementById('signOut');
 const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
+const dataDiv = document.getElementById('dataDiv');
+
 signOutBtn.addEventListener('click', function(event) {
         event.preventDefault();
         auth.signOut().then(() => console.log('User signed out'));
@@ -76,6 +78,7 @@ auth.onAuthStateChanged(function(user) {
                 console.log(`HEllo user ${JSON.stringify(user)}`);
                 signOutBtn.classList.remove('hidden');
                 authWidget.classList.add('hidden');
+                dataDiv.classList.remove('hidden');
                 if (welcomeSpan) {
                         welcomeSpan.innerHTML = user.displayName;
                 }

@@ -58,8 +58,7 @@
         const welcomeSpan = document.getElementById('userName');
         signOutBtn.addEventListener('click', function(event) {
                 event.preventDefault();
-                alert('sign out');
-                auth.signOut();
+                auth.signOut().then(() => console.log('User signed out'));
         });
 
         auth.onAuthStateChanged(function(user) {

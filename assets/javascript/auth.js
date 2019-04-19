@@ -5,11 +5,13 @@
                 authDomain: 'loginwith-8506a.firebaseapp.com',
                 databaseURL: 'https://loginwith-8506a.firebaseio.com',
                 projectId: 'loginwith-8506a',
-                storageBucket: 'loginwith-8506a.appspot.com',
-                messagingSenderId: '437861183874',
+                // storageBucket: 'loginwith-8506a.appspot.com',
+                // messagingSenderId: '437861183874',
         };
-        const app = firebase.initializeApp(config);
-        const db = app.firestore();
+        firebase.initializeApp(config);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+        db.settings({ timestampsInSnapshots: true });
 
         const uiConfig = {
                 callbacks: {
@@ -47,7 +49,7 @@
                 tosUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
                 privacyPolicyUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
         };
-        const auth = app.auth();
+
         const ui = new firebaseui.auth.AuthUI(auth);
         ui.start(`#firebaseui-auth-container`, uiConfig);
 
@@ -55,11 +57,12 @@
         const authWidget = document.getElementById('firebaseui-auth-container');
         const welcomeSpan = document.getElementById('userName');
         signOutBtn.addEventListener('click', function(event) {
+                event.preventDefault();
                 alert('sign out');
-                firebase.auth().signOut();
+                auth.signOut();
         });
 
-        firebase.auth().onAuthStateChanged(function(user) {
+        auth.onAuthStateChanged(function(user) {
                 if (user) {
                         // User is signed in.
                         console.log(`HEllo user ${JSON.stringify(user)}`);

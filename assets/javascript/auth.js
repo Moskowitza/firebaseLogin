@@ -11,7 +11,6 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 const auth = firebase.auth();
-db.settings({ timestampsInSnapshots: true });
 
 const uiConfig = {
         callbacks: {
@@ -72,8 +71,11 @@ auth.onAuthStateChanged(function(user) {
                 }
                 db.collection('users')
                         .get()
-                        .then(function(snapshot) {
-                                console.log('Document written with ID: ', snapshot.docs);
+                        .then(function(querySnapshot) {
+                                querySnapshot.forEach(function(doc) {
+                                        // doc.data() is never undefined for query doc snapshots
+                                        console.log(doc.id, ' => ', doc.data());
+                                });
                         })
                         .catch(function(error) {
                                 console.error('Error adding document: ', error);

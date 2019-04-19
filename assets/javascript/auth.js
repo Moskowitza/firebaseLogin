@@ -69,17 +69,6 @@ auth.onAuthStateChanged(function(user) {
                 if (welcomeSpan) {
                         welcomeSpan.innerHTML = user.displayName;
                 }
-                db.collection('users')
-                        .get()
-                        .then(function(querySnapshot) {
-                                querySnapshot.forEach(function(doc) {
-                                        // doc.data() is never undefined for query doc snapshots
-                                        console.log(doc.id, ' => ', doc.data());
-                                });
-                        })
-                        .catch(function(error) {
-                                console.error('Error adding document: ', error);
-                        });
         } else {
                 // No user is signed in.
                 console.log('No User');
@@ -91,3 +80,16 @@ auth.onAuthStateChanged(function(user) {
         }
 });
 // })();
+
+db.collection('users')
+        .get()
+        .then(snapshot => {
+                loadData(snapshot);
+                // snapshot.forEach(function(doc) {
+                //         // doc.data() is never undefined for query doc snapshots
+                //         console.log(doc.id, ' => ', doc.data());
+                // });
+        })
+        .catch(function(error) {
+                console.error('Error adding document: ', error);
+        });

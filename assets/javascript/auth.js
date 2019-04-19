@@ -97,12 +97,12 @@ auth.onAuthStateChanged(function(user) {
 function loadData(data) {
         data.forEach(item => {
                 const person = item.data();
-                console.log(`person ${JSON.stringify(person)}`);
+                console.log(`person ${person.born}`);
                 const li = document.createElement('li');
-                li.innHTML = `
-                <div>${person.born}</div>
-                <div>${person.first}</div>
-                <div>${person.last}</div>
+                li.innerHTML = `
+                 <div>${person.born}</div>
+                 <div>${person.first}</div>
+                 <div>${person.last}</div>
                 `;
                 dataDiv.appendChild(li);
         });

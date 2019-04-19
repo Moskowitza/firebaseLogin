@@ -10,17 +10,6 @@
         };
         const app = firebase.initializeApp(config);
         const db = app.firestore();
-        db.collection('users').add({
-                        first: 'Ada',
-                        last: 'Lovelace',
-                        born: 1815,
-                })
-                .then(function(docRef) {
-                        console.log('Document written with ID: ', docRef.id);
-                })
-                .catch(function(error) {
-                        console.error('Error adding document: ', error);
-                });
 
         const uiConfig = {
                 callbacks: {
@@ -79,6 +68,18 @@
                         if (welcomeSpan) {
                                 welcomeSpan.innerHTML = user.displayName;
                         }
+                        db.collection('users')
+                                .add({
+                                        first: 'Ada',
+                                        last: 'Lovelace',
+                                        born: 1815,
+                                })
+                                .then(function(docRef) {
+                                        console.log('Document written with ID: ', docRef.id);
+                                })
+                                .catch(function(error) {
+                                        console.error('Error adding document: ', error);
+                                });
                 } else {
                         // No user is signed in.
                         console.log('No User');

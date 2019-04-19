@@ -11,6 +11,16 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 const auth = firebase.auth();
+function addDataToDom() {
+        db.collection('users')
+                .get()
+                .then(snapshot => {
+                        loadData(snapshot);
+                })
+                .catch(function(error) {
+                        console.error('Error adding document: ', error);
+                });
+}
 
 const uiConfig = {
         callbacks: {
@@ -69,6 +79,7 @@ auth.onAuthStateChanged(function(user) {
                 if (welcomeSpan) {
                         welcomeSpan.innerHTML = user.displayName;
                 }
+                addDataToDom();
         } else {
                 // No user is signed in.
                 console.log('No User');
@@ -80,16 +91,3 @@ auth.onAuthStateChanged(function(user) {
         }
 });
 // })();
-
-db.collection('users')
-        .get()
-        .then(snapshot => {
-                loadData(snapshot);
-                // snapshot.forEach(function(doc) {
-                //         // doc.data() is never undefined for query doc snapshots
-                //         console.log(doc.id, ' => ', doc.data());
-                // });
-        })
-        .catch(function(error) {
-                console.error('Error adding document: ', error);
-        });

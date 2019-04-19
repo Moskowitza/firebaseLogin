@@ -1,13 +1,15 @@
 const dataDiv = document.getElementById('dataDiv');
 
 const loadData = data => {
+        dataDiv.classList.remove('hidden');
         data.forEach(item => {
                 const person = item.data();
-                console.log(person);
+                console.log(`person ${person}`);
                 const li = `
-                <div>${item.born}</div>
-                <div>${item.first}</div>
-                <div>${item.last}</div>
+                <div>${person.born}</div>
+                <div>${person.first}</div>
+                <div>${person.last}</div>
                 `;
+                dataDiv.appendChild(li);
         });
 };

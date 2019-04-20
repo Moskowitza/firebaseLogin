@@ -1,5 +1,9 @@
 // (function() {
 // Initialize Firebase
+const signOutBtn = document.getElementById('signOut');
+const authWidget = document.getElementById('firebaseui-auth-container');
+const welcomeSpan = document.getElementById('userName');
+const dataDiv = document.getElementById('dataDiv');
 const config = {
         apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
         authDomain: 'loginwith-8506a.firebaseapp.com',
@@ -11,8 +15,25 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 const auth = firebase.auth();
+function loadData(data) {
+        if (data.length) {
+                data.forEach(item => {
+                        const climb = item.data();
+                        console.log(`climb ${climb.born}`);
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                        <div>${climb.Name}</div>
+                        <div>${climb.Grade}</div>
+                        `;
+                        dataDiv.appendChild(li);
+                });
+        } else {
+                dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
+        }
+}
+// addDatatoDom uses loadData
 function addDataToDom() {
-        db.collection('users')
+        db.collection('climbs')
                 .get()
                 .then(snapshot => {
                         loadData(snapshot);
@@ -62,11 +83,6 @@ const uiConfig = {
 const ui = new firebaseui.auth.AuthUI(auth);
 ui.start(`#firebaseui-auth-container`, uiConfig);
 
-const signOutBtn = document.getElementById('signOut');
-const authWidget = document.getElementById('firebaseui-auth-container');
-const welcomeSpan = document.getElementById('userName');
-const dataDiv = document.getElementById('dataDiv');
-
 signOutBtn.addEventListener('click', function(event) {
         event.preventDefault();
         auth.signOut().then(() => console.log('User signed out'));
@@ -89,21 +105,9 @@ auth.onAuthStateChanged(function(user) {
                 signOutBtn.classList.add('hidden');
                 authWidget.classList.remove('hidden');
                 if (welcomeSpan) {
-                        welcomeSpan.innerHTML = '';
+                        welcomeSpan.innerHTML = ', login to View Documents';
                 }
+                loadData([]);
         }
 });
 // })();
-function loadData(data) {
-        data.forEach(item => {
-                const person = item.data();
-                console.log(`person ${person.born}`);
-                const li = document.createElement('li');
-                li.innerHTML = `
-                 <div>${person.born}</div>
-                 <div>${person.first}</div>
-                 <div>${person.last}</div>
-                `;
-                dataDiv.appendChild(li);
-        });
-}

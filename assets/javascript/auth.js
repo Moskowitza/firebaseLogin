@@ -62,7 +62,7 @@ signOutBtn.addEventListener('click', function(event) {
 
 function loadData(data) {
         console.log('load Data');
-        if (data.length) {
+        if (data) {
                 data.forEach(item => {
                         const climb = item.data();
                         console.log(`climb ${climb}`);

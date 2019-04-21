@@ -109,7 +109,7 @@ auth.onAuthStateChanged(function(user) {
                         createForm.classList.add('hidden');
                         welcomeSpan.innerHTML = ', login to View Documents';
                 }
-                // loadData([]);
+                loadData([]);
         }
 });
 // add new climbs to the database

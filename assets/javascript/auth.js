@@ -66,7 +66,6 @@ function loadData(data) {
         if (data) {
                 data.forEach(item => {
                         const climb = item.data();
-                        console.log(`climb ${JSON.parse(climb, null, 4)}`);
                         const li = document.createElement('li');
                         li.innerHTML = `
                         <div>${climb.Name}</div>

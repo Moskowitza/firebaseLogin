@@ -136,10 +136,13 @@ const climbList = [];
 //         .onSnapshot(snapshot=>climbList.push(snapshot.id))
 //         .catch(err => console.error(err));
 // Add new climbs
-document.querySelectorAll('.saveClimb').addEventListener('click', function(event) {
+const saveClimbBtn = document.querySelectorAll('.saveClimb');
+saveClimbBtn.addEventListener('click', function(event) {
         event.preventDefault();
         // get current list
-        console.log(this.id);
+        console.log('save Button');
+        console.log(this);
+        console.log(event);
         // db.collection('usersClimbs')
         //         .doc(user.id)
         //         .set({

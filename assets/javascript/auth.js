@@ -113,7 +113,7 @@ createForm.addEventListener('submit', event => {
         event.preventDefault();
 
         console.log(`adding ${createForm.climbName.value}`);
-        db.collection(climbs)
+        db.collection('climbs')
                 .add({
                         Name: createForm.climbName.value,
                         Grade: createForm.climbGrade.value,

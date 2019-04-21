@@ -4,36 +4,16 @@ const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
 const createForm = document.querySelector('#addClimb');
+// Initialize App
 const config = {
         apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
         authDomain: 'loginwith-8506a.firebaseapp.com',
         databaseURL: 'https://loginwith-8506a.firebaseio.com',
         projectId: 'loginwith-8506a',
-        // storageBucket: 'loginwith-8506a.appspot.com',
-        // messagingSenderId: '437861183874',
 };
 firebase.initializeApp(config);
 const db = firebase.firestore();
 const auth = firebase.auth();
-function loadData(data) {
-        if (data.length) {
-                debugger;
-                data.forEach(item => {
-                        const climb = item.data();
-                        console.log(`climb ${climb}`);
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                        <div>${climb.Name}</div>
-                        <div>${climb.Grade}</div>
-                        `;
-                        dataDiv.appendChild(li);
-                });
-        }
-        // else {
-        //         dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
-        // }
-}
-// addDatatoDom uses loadData
 
 const uiConfig = {
         callbacks: {
@@ -79,6 +59,24 @@ signOutBtn.addEventListener('click', function(event) {
         event.preventDefault();
         auth.signOut().then(() => console.log('User signed out'));
 });
+
+function loadData(data) {
+        if (data.length) {
+                data.forEach(item => {
+                        const climb = item.data();
+                        console.log(`climb ${climb}`);
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                        <div>${climb.Name}</div>
+                        <div>${climb.Grade}</div>
+                        `;
+                        dataDiv.appendChild(li);
+                });
+        }
+        // else {
+        //         dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
+        // }
+}
 
 auth.onAuthStateChanged(function(user) {
         if (user) {

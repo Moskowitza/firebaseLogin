@@ -111,8 +111,8 @@ auth.onAuthStateChanged(function(user) {
 // add new climbs to the database
 createForm.addEventListener('submit', event => {
         event.preventDefault();
-        console.log(`adding ${createForm.climbName.value}`);
 
+        console.log(`adding ${createForm.climbName.value}`);
         db.collection(climbs)
                 .add({
                         Name: createForm.climbName.value,

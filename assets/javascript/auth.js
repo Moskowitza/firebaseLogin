@@ -73,6 +73,7 @@ function loadData(data) {
                         <button id="${item.id}" class="saveClimb">save</button>
                         `;
                         dataDiv.appendChild(li);
+                        document.querySelectorAll('.saveClimb').addEventListener('click',saveClimb)
                 });
         } else {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
@@ -137,7 +138,7 @@ const climbList = [];
 //         .catch(err => console.error(err));
 // Add new climbs
 const saveClimbBtn = document.querySelectorAll('.saveClimb');
-saveClimbBtn.addEventListener('click', function(event) {
+function saveClimb(event) {
         event.preventDefault();
         // get current list
         console.log('save Button');

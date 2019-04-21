@@ -19,7 +19,7 @@ function loadData(data) {
         if (data.length) {
                 data.forEach(item => {
                         const climb = item.data();
-                        console.log(`climb ${climb.born}`);
+                        console.log(`climb ${climb}`);
                         const li = document.createElement('li');
                         li.innerHTML = `
                         <div>${climb.Name}</div>

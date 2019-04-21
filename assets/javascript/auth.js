@@ -34,13 +34,8 @@ function loadData(data) {
 // addDatatoDom uses loadData
 function addDataToDom() {
         db.collection('climbs')
-                .get()
-                .then(snapshot => {
-                        loadData(snapshot);
-                })
-                .catch(function(error) {
-                        console.error('Error adding document: ', error);
-                });
+                .onSnapshot(snapshot => loadData(snapshot))
+                .catch(err => console.error('Error adding document: ', err));
 }
 
 const uiConfig = {
@@ -127,3 +122,4 @@ createForm.addEventListener('submit', event => {
                 })
                 .catch(err => console.error(err));
 });
+// listen for changes to db and onsap

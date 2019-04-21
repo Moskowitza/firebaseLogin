@@ -37,7 +37,7 @@ function addDataToDom() {
                 .onSnapshot(snapshot => loadData(snapshot))
                 .catch(err => console.error('Error adding document: ', err));
 }
-
+addDataToDom();
 const uiConfig = {
         callbacks: {
                 signInSuccessWithAuthResult(authResult, redirectUrl) {
@@ -110,8 +110,9 @@ auth.onAuthStateChanged(function(user) {
 
 // add new climbs to the database
 createForm.addEventListener('submit', event => {
-        console.log(`adding ${createForm.climbName.value}`);
         event.preventDefault();
+        console.log(`adding ${createForm.climbName.value}`);
+
         db.collection(climbs)
                 .add({
                         Name: createForm.climbName.value,

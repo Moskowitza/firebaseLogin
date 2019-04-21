@@ -86,17 +86,15 @@ auth.onAuthStateChanged(function(user) {
                 signOutBtn.classList.remove('hidden');
                 authWidget.classList.add('hidden');
                 dataDiv.classList.remove('hidden');
-                db.collection('climbs')
-                        .get()
-                        .then(
-                                function(snapshot) {
-                                        console.log(snapshot.docs);
-                                        loadData(snapshot);
-                                },
-                                function(error) {
-                                        console.error(error);
-                                }
-                        );
+                db.collection('climbs').onSnapshot(
+                        function(snapshot) {
+                                console.log(snapshot.docs);
+                                loadData(snapshot);
+                        },
+                        function(error) {
+                                console.error(error);
+                        }
+                );
                 if (welcomeSpan && createForm) {
                         welcomeSpan.innerHTML = user.displayName;
                         createForm.classList.remove('hidden');

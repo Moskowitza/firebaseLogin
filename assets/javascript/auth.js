@@ -66,11 +66,12 @@ function loadData(data) {
         if (data) {
                 data.forEach(item => {
                         const climb = item.data();
-                        console.log(`climb ${climb}`);
+                        console.log(`climb ${JSON.parse(climb, null, 4)}`);
                         const li = document.createElement('li');
                         li.innerHTML = `
                         <div>${climb.Name}</div>
                         <div>${climb.Grade}</div>
+                        <button id="${climb.id} class="saveClimb">save</button>
                         `;
                         dataDiv.appendChild(li);
                 });
@@ -128,3 +129,17 @@ if (createForm) {
                         .catch(err => console.error(err));
         });
 }
+document.querySelectorAll('.saveClimb').addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log(this.id);
+        // db.collection('usersClimbs')
+        //         .doc(user.id)
+        //         .add({
+        //                 Name: createForm.climbName.value,
+        //                 Grade: createForm.climbGrade.value,
+        //         })
+        //         .then(() => {
+        //                 createForm.reset();
+        //         })
+        //         .catch(err => console.error(err));
+});

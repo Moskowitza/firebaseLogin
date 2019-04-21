@@ -62,7 +62,7 @@ signOutBtn.addEventListener('click', function(event) {
 
 function loadData(data) {
         console.log(`data.length${data.length}`);
-        console.log(`data.length${data}`);
+        console.log(`data ${JSON.stringify(data)}`);
         if (data.length) {
                 data.forEach(item => {
                         const climb = item.data();
@@ -112,7 +112,7 @@ auth.onAuthStateChanged(function(user) {
                         createForm.classList.add('hidden');
                         welcomeSpan.innerHTML = ', login to View Documents';
                 }
-                loadData([]);
+                // loadData([]);
         }
 });
 // add new climbs to the database

@@ -1,9 +1,9 @@
-// (function() {
 // Initialize Firebase
 const signOutBtn = document.getElementById('signOut');
 const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
+const createForm = document.querySelector('#addClimb');
 const config = {
         apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
         authDomain: 'loginwith-8506a.firebaseapp.com',
@@ -99,9 +99,11 @@ auth.onAuthStateChanged(function(user) {
                         welcomeSpan.innerHTML = user.displayName;
                 }
                 addDataToDom();
+                createForm.classList.remove('hidden');
         } else {
                 // No user is signed in.
                 console.log('No User');
+                createForm.classList.add('hidden');
                 signOutBtn.classList.add('hidden');
                 authWidget.classList.remove('hidden');
                 if (welcomeSpan) {
@@ -110,4 +112,18 @@ auth.onAuthStateChanged(function(user) {
                 loadData([]);
         }
 });
-// })();
+
+// add new climbs to the database
+createForm.addEventListener('submit', event => {
+        console.log(`adding ${createForm.climbName.value}`);
+        event.preventDefault();
+        db.collection(climbs)
+                .add({
+                        Name: createForm.climbName.value,
+                        Grade: createForm.climbGrade.value,
+                })
+                .then(() => {
+                        createForm.reset();
+                })
+                .catch(err => console.error(err));
+});

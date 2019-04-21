@@ -61,6 +61,8 @@ signOutBtn.addEventListener('click', function(event) {
 });
 
 function loadData(data) {
+        console.log(`data.length${data.length}`);
+        console.log(`data.length${data}`);
         if (data.length) {
                 data.forEach(item => {
                         const climb = item.data();
@@ -89,7 +91,7 @@ auth.onAuthStateChanged(function(user) {
                         .get()
                         .then(
                                 function(snapshot) {
-                                        console.log(snapshot);
+                                        console.log(snapshot.docs);
                                         loadData(snapshot);
                                 },
                                 function(error) {

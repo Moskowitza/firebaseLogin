@@ -85,18 +85,19 @@ auth.onAuthStateChanged(function(user) {
                 signOutBtn.classList.remove('hidden');
                 authWidget.classList.add('hidden');
                 dataDiv.classList.remove('hidden');
-                if (welcomeSpan) {
+                if (welcomeSpan && createForm) {
                         welcomeSpan.innerHTML = user.displayName;
+                        db.collection('climbs').onSnapshot(snapshot => loadData(snapshot));
+                        createForm.classList.remove('hidden');
                 }
-                db.collection('climbs').onSnapshot(snapshot => loadData(snapshot));
-                createForm.classList.remove('hidden');
         } else {
                 // No user is signed in.
                 console.log('No User');
-                createForm.classList.add('hidden');
+
                 signOutBtn.classList.add('hidden');
                 authWidget.classList.remove('hidden');
-                if (welcomeSpan) {
+                if (welcomeSpan && createForm) {
+                        createForm.classList.add('hidden');
                         welcomeSpan.innerHTML = ', login to View Documents';
                 }
                 loadData([]);
@@ -104,18 +105,20 @@ auth.onAuthStateChanged(function(user) {
 });
 
 // add new climbs to the database
-createForm.addEventListener('submit', event => {
-        event.preventDefault();
+if (createForm) {
+        createForm.addEventListener('submit', event => {
+                event.preventDefault();
 
-        console.log(`adding ${createForm.climbName.value}`);
-        db.collection('climbs')
-                .add({
-                        Name: createForm.climbName.value,
-                        Grade: createForm.climbGrade.value,
-                })
-                .then(() => {
-                        createForm.reset();
-                })
-                .catch(err => console.error(err));
-});
+                console.log(`adding ${createForm.climbName.value}`);
+                db.collection('climbs')
+                        .add({
+                                Name: createForm.climbName.value,
+                                Grade: createForm.climbGrade.value,
+                        })
+                        .then(() => {
+                                createForm.reset();
+                        })
+                        .catch(err => console.error(err));
+        });
+}
 // listen for changes to db and onsap

@@ -73,7 +73,8 @@ function loadData(data) {
                         <button id="${item.id}" class="saveClimb">save</button>
                         `;
                         dataDiv.appendChild(li);
-                        document.querySelectorAll('.saveClimb').addEventListener('click', saveClimb);
+                        const saveBtn = document.getElementsByClassName('saveClimb');
+                        saveBtn.addEventListener('click', saveClimb);
                 });
         } else {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;

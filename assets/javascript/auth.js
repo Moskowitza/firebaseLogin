@@ -85,20 +85,21 @@ auth.onAuthStateChanged(function(user) {
                 signOutBtn.classList.remove('hidden');
                 authWidget.classList.add('hidden');
                 dataDiv.classList.remove('hidden');
-                if (welcomeSpan && createForm) {
-                        welcomeSpan.innerHTML = user.displayName;
-                        createForm.classList.remove('hidden');
-                }
                 db.collection('climbs')
                         .get()
                         .then(
                                 function(snapshot) {
+                                        console.log(snapshot);
                                         loadData(snapshot);
                                 },
                                 function(error) {
                                         console.error(error);
                                 }
                         );
+                if (welcomeSpan && createForm) {
+                        welcomeSpan.innerHTML = user.displayName;
+                        createForm.classList.remove('hidden');
+                }
         } else {
                 // No user is signed in.
                 console.log('No User');

@@ -4,6 +4,7 @@ const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
 const createForm = document.querySelector('#addClimb');
+const currentUser = {};
 // Initialize App
 const config = {
         apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
@@ -67,13 +68,17 @@ function loadData(data) {
                 data.forEach(item => {
                         const climb = item.data();
                         const li = document.createElement('li');
-                        li.innerHTML = `
+                        li.innerHTML = `<div class="climbDeets">
+                        </div>
                         <div>${climb.Name}</div>
                         <div>${climb.Grade}</div>
                         `;
                         dataDiv.appendChild(li);
                         const button = document.createElement('button');
-                        button.innerHTML = `<button id="${item.id}" class="saveClimb">save</button>`;
+                        button.setAttribute('id', item.id);
+                        button.setAttribute('class', 'saveClimb');
+                        button.textContent = 'save';
+                        // You made a button in a button dumby
                         button.addEventListener('click', saveClimb);
                         dataDiv.appendChild(button);
                 });
@@ -143,7 +148,7 @@ function saveClimb(event) {
         event.preventDefault();
         // get current list
         console.log('save Button');
-        console.log(this);
+        console.log(this.id);
         console.log(event);
         // db.collection('usersClimbs')
         //         .doc(user.id)

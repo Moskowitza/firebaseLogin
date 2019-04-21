@@ -61,8 +61,7 @@ signOutBtn.addEventListener('click', function(event) {
 });
 
 function loadData(data) {
-        console.log(`data.length${data.length}`);
-        console.log(`data ${JSON.stringify(data)}`);
+        console.log('load Data');
         if (data.length) {
                 data.forEach(item => {
                         const climb = item.data();

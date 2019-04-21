@@ -32,12 +32,7 @@ function loadData(data) {
         }
 }
 // addDatatoDom uses loadData
-function addDataToDom() {
-        db.collection('climbs')
-                .onSnapshot(snapshot => loadData(snapshot))
-                .catch(err => console.error('Error adding document: ', err));
-}
-addDataToDom();
+
 const uiConfig = {
         callbacks: {
                 signInSuccessWithAuthResult(authResult, redirectUrl) {
@@ -93,7 +88,7 @@ auth.onAuthStateChanged(function(user) {
                 if (welcomeSpan) {
                         welcomeSpan.innerHTML = user.displayName;
                 }
-                addDataToDom();
+                db.collection('climbs').onSnapshot(snapshot => loadData(snapshot));
                 createForm.classList.remove('hidden');
         } else {
                 // No user is signed in.

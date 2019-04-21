@@ -128,14 +128,22 @@ if (createForm) {
                         .catch(err => console.error(err));
         });
 }
+// An array of climbs the user has saved.
+const climbList = [];
+// Get current user's climbs
+// db.collection('usersClimbs')
+//         .doc(user.id)
+//         .onSnapshot(snapshot=>climbList.push(snapshot.id))
+//         .catch(err => console.error(err));
+// Add new climbs
 document.querySelectorAll('.saveClimb').addEventListener('click', function(event) {
         event.preventDefault();
+        // get current list
         console.log(this.id);
         // db.collection('usersClimbs')
         //         .doc(user.id)
-        //         .add({
-        //                 Name: createForm.climbName.value,
-        //                 Grade: createForm.climbGrade.value,
+        //         .set({
+        //                 climbList=[]
         //         })
         //         .then(() => {
         //                 createForm.reset();

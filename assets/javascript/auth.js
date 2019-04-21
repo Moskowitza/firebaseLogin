@@ -16,7 +16,7 @@ firebase.initializeApp(config);
 const db = firebase.firestore();
 const auth = firebase.auth();
 function loadData(data) {
-        console.log(`data ${data}`);
+        console.log(`data ${JSON.stringify(data)}`);
         if (data.length) {
                 data.forEach(item => {
                         const climb = item.data();

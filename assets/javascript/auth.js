@@ -28,9 +28,10 @@ function loadData(data) {
                         `;
                         dataDiv.appendChild(li);
                 });
-        } else {
-                dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
+        // else {
+        //         dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
+        // }
 }
 // addDatatoDom uses loadData
 

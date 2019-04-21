@@ -70,7 +70,7 @@ function loadData(data) {
                         li.innerHTML = `
                         <div>${climb.Name}</div>
                         <div>${climb.Grade}</div>
-                        <button id="${climb.id}" class="saveClimb">save</button>
+                        <button id="${item.id}" class="saveClimb">save</button>
                         `;
                         dataDiv.appendChild(li);
                 });

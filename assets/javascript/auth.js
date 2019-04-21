@@ -61,6 +61,7 @@ signOutBtn.addEventListener('click', function(event) {
 });
 
 function loadData(data) {
+        dataDiv.innerHTML = '';
         console.log('load Data');
         if (data) {
                 data.forEach(item => {

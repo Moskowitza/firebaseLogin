@@ -81,15 +81,22 @@ function loadData(data) {
 auth.onAuthStateChanged(function(user) {
         if (user) {
                 // User is signed in.
-                console.log(`HEllo user ${JSON.stringify(user)}`);
+                console.log(`HEllo user ${JSON.stringify(user, null, 4)}`);
                 signOutBtn.classList.remove('hidden');
                 authWidget.classList.add('hidden');
                 dataDiv.classList.remove('hidden');
                 if (welcomeSpan && createForm) {
                         welcomeSpan.innerHTML = user.displayName;
-                        db.collection('climbs').onSnapshot(snapshot => loadData(snapshot));
                         createForm.classList.remove('hidden');
                 }
+                db.collection('climbs').onSnapshot(
+                        function(snapshot) {
+                                loadData(snapshot);
+                        },
+                        function(error) {
+                                console.error(error);
+                        }
+                );
         } else {
                 // No user is signed in.
                 console.log('No User');

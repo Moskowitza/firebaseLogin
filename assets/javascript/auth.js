@@ -89,14 +89,16 @@ auth.onAuthStateChanged(function(user) {
                         welcomeSpan.innerHTML = user.displayName;
                         createForm.classList.remove('hidden');
                 }
-                db.collection('climbs').onSnapshot(
-                        function(snapshot) {
-                                loadData(snapshot);
-                        },
-                        function(error) {
-                                console.error(error);
-                        }
-                );
+                db.collection('climbs')
+                        .get()
+                        .then(
+                                function(snapshot) {
+                                        loadData(snapshot);
+                                },
+                                function(error) {
+                                        console.error(error);
+                                }
+                        );
         } else {
                 // No user is signed in.
                 console.log('No User');
@@ -110,12 +112,10 @@ auth.onAuthStateChanged(function(user) {
                 loadData([]);
         }
 });
-
 // add new climbs to the database
 if (createForm) {
         createForm.addEventListener('submit', event => {
                 event.preventDefault();
-
                 console.log(`adding ${createForm.climbName.value}`);
                 db.collection('climbs')
                         .add({
@@ -128,4 +128,3 @@ if (createForm) {
                         .catch(err => console.error(err));
         });
 }
-// listen for changes to db and onsap

@@ -73,7 +73,7 @@ function loadData(data) {
                         <button id="${item.id}" class="saveClimb">save</button>
                         `;
                         dataDiv.appendChild(li);
-                        document.querySelectorAll('.saveClimb').addEventListener('click',saveClimb)
+                        document.querySelectorAll('.saveClimb').addEventListener('click', saveClimb);
                 });
         } else {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
@@ -137,7 +137,6 @@ const climbList = [];
 //         .onSnapshot(snapshot=>climbList.push(snapshot.id))
 //         .catch(err => console.error(err));
 // Add new climbs
-const saveClimbBtn = document.querySelectorAll('.saveClimb');
 function saveClimb(event) {
         event.preventDefault();
         // get current list
@@ -153,4 +152,4 @@ function saveClimb(event) {
         //                 createForm.reset();
         //         })
         //         .catch(err => console.error(err));
-});
+}

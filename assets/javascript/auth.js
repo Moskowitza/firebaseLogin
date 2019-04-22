@@ -141,7 +141,7 @@ auth.onAuthStateChanged(function(user) {
                                 function(snapshot) {
                                         console.log(snapshot.data());
                                         // loadSavedClimbs(snapshot);
-                                        savedClimbsArray = snapshot.data();
+                                        savedClimbsArray = snapshot.data().newClimbList;
                                 },
                                 function(error) {
                                         console.error(error);

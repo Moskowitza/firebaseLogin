@@ -162,7 +162,7 @@ function saveClimb(event) {
         climbList.push(this.id);
         db.collection('usersClimbs')
                 .doc(currentUser.uid)
-                .add({
+                .set({
                         climbList,
                 });
         // .catch(err => console.error(err));

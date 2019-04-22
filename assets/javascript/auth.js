@@ -90,16 +90,6 @@ function loadData(data) {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
-function getSavedClimbs() {
-        savedClimbsArray.forEach(climb =>
-                db
-                        .collection('climbs')
-                        .doc(climb)
-                        .onSnapshot(function(snapshot) {
-                                console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                        })
-        );
-}
 function loadSavedClimbs(data) {
         savedDataDiv.innerHTML = '';
         console.log('loading Saved Climbs');
@@ -124,6 +114,17 @@ function loadSavedClimbs(data) {
         } else {
                 savedDataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
+}
+function getSavedClimbs() {
+        savedClimbsArray.forEach(climb =>
+                db
+                        .collection('climbs')
+                        .doc(climb)
+                        .onSnapshot(function(snapshot) {
+                                console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
+                                loadSavedClimbs(snapshot);
+                        })
+        );
 }
 
 auth.onAuthStateChanged(function(user) {

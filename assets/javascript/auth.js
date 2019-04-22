@@ -96,7 +96,7 @@ function getSavedClimbs() {
                         .collection('climbs')
                         .doc(climb)
                         .onSnapshot(function(snapshot) {
-                                console.log(`Saved Climb ${snapshot.data()}`);
+                                console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
                         })
         );
 }

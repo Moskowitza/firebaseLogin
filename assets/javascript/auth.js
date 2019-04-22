@@ -4,7 +4,7 @@ const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
 const createForm = document.querySelector('#addClimb');
-const currentUser = {};
+let currentUser = {};
 // Initialize App
 const config = {
         apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',

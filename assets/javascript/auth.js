@@ -192,21 +192,18 @@ if (createForm) {
                         .catch(err => console.error(err));
         });
 }
-// An array of climbs the user has saved.
-const climbList = [];
 
 function saveClimb(event) {
         event.preventDefault();
-        // get current list
-        console.log('save Button');
-        console.log(`Current User: ${currentUser.uid}`);
-        climbList.push(this.id);
-        const newClimbList = [...new Set(climbList)];
-        console.log(`climblist ${climbList}`);
+        // if this climb is not already in the savedClimbs array add it
+        if (!savedClimbsArray.includes(this.id)) savedClimbsArray.push(this.id);
+
         db.collection('usersClimbs')
                 .doc(currentUser.uid)
                 .set({
-                        newClimbList,
+                        savedClimbsArray,
                 })
                 .catch(err => console.error(err));
+        // Then get a response from the server
+        getSavedClimbs();
 }

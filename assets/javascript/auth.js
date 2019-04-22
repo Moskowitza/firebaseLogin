@@ -6,6 +6,7 @@ const dataDiv = document.getElementById('dataDiv');
 const savedDataDiv = document.getElementById('savedDataDiv');
 const createForm = document.querySelector('#addClimb');
 let currentUser = {};
+let savedClimbsArray = [];
 // Initialize App
 const config = {
         apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
@@ -114,7 +115,7 @@ function loadSavedClimbs(data) {
                 savedDataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
-let savedClimbsArray = [];
+
 auth.onAuthStateChanged(function(user) {
         if (user) {
                 // User is signed in.
@@ -140,7 +141,7 @@ auth.onAuthStateChanged(function(user) {
                                 function(snapshot) {
                                         console.log(snapshot);
                                         // loadSavedClimbs(snapshot);
-                                        savedClimbsArray = snapshot.docs;
+                                        savedClimbsArray = snapshot.data;
                                 },
                                 function(error) {
                                         console.error(error);

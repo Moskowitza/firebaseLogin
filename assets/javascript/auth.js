@@ -58,7 +58,9 @@ ui.start(`#firebaseui-auth-container`, uiConfig);
 
 signOutBtn.addEventListener('click', function(event) {
         event.preventDefault();
-        auth.signOut().then(() => console.log('User signed out'));
+        auth.signOut()
+                .then(() => console.log('User signed out'))
+                .then(() => window.location.replace('https://moskowitza.github.io/firebaseLogin/'));
 });
 
 function loadData(data) {

@@ -90,10 +90,12 @@ function loadData(data) {
 auth.onAuthStateChanged(function(user) {
         if (user) {
                 // User is signed in.
-                console.log(`HEllo user ${JSON.stringify(user, null, 4)}`);
+                currentUser = user;
+                console.log(`Hello user: ${JSON.stringify(user, null, 4)}`);
                 signOutBtn.classList.remove('hidden');
                 authWidget.classList.add('hidden');
                 dataDiv.classList.remove('hidden');
+                // Load ALL collections
                 db.collection('climbs').onSnapshot(
                         function(snapshot) {
                                 console.log(snapshot.docs);
@@ -103,6 +105,16 @@ auth.onAuthStateChanged(function(user) {
                                 console.error(error);
                         }
                 );
+                // Todo load USER'S saved collection ??
+                // db.collection('userClimbs').doc(user.id).onSnapshot(
+                //         function(snapshot) {
+                //                 console.log(snapshot.docs);
+                //         },
+                //         function(error) {
+                //                 console.error(error);
+                //         }
+                // );
+                // If you're on account.html, load the following
                 if (welcomeSpan && createForm) {
                         welcomeSpan.innerHTML = user.displayName;
                         createForm.classList.remove('hidden');
@@ -110,7 +122,6 @@ auth.onAuthStateChanged(function(user) {
         } else {
                 // No user is signed in.
                 console.log('No User');
-
                 signOutBtn.classList.add('hidden');
                 authWidget.classList.remove('hidden');
                 if (welcomeSpan && createForm) {
@@ -120,7 +131,7 @@ auth.onAuthStateChanged(function(user) {
                 loadData([]);
         }
 });
-// add new climbs to the database
+// If on Account page and logged in
 if (createForm) {
         createForm.addEventListener('submit', event => {
                 event.preventDefault();
@@ -138,25 +149,19 @@ if (createForm) {
 }
 // An array of climbs the user has saved.
 const climbList = [];
-// Get current user's climbs
-// db.collection('usersClimbs')
-//         .doc(user.id)
-//         .onSnapshot(snapshot=>climbList.push(snapshot.id))
-//         .catch(err => console.error(err));
-// Add new climbs
+
 function saveClimb(event) {
         event.preventDefault();
         // get current list
         console.log('save Button');
         console.log(this.id);
         console.log(event);
-        // db.collection('usersClimbs')
-        //         .doc(user.id)
-        //         .set({
-        //                 climbList=[]
-        //         })
-        //         .then(() => {
-        //                 createForm.reset();
-        //         })
-        //         .catch(err => console.error(err));
+        console.log(`Current User: ${JSON.stringify(currentUser, null, 4)}`);
+        climbList.push(this.id);
+        db.collection('usersClimbs')
+                .doc(currentUser.id)
+                .set({
+                        climbList,
+                })
+                .catch(err => console.error(err));
 }

@@ -139,9 +139,9 @@ auth.onAuthStateChanged(function(user) {
                         .doc(currentUser.uid)
                         .onSnapshot(
                                 function(snapshot) {
-                                        console.log(snapshot);
+                                        console.log(snapshot.data());
                                         // loadSavedClimbs(snapshot);
-                                        savedClimbsArray = snapshot.data;
+                                        savedClimbsArray = snapshot.data();
                                 },
                                 function(error) {
                                         console.error(error);

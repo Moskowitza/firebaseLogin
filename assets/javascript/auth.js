@@ -159,7 +159,7 @@ function saveClimb(event) {
         console.log(`Current User: ${JSON.stringify(currentUser, null, 4)}`);
         climbList.push(this.id);
         db.collection('usersClimbs')
-                .doc(currentUser.id)
+                .doc(currentUser.uid)
                 .set({
                         climbList,
                 })

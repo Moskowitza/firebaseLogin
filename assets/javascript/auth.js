@@ -157,9 +157,9 @@ function saveClimb(event) {
         // get current list
         console.log('save Button');
         console.log(this.id);
-        console.log(event);
-        console.log(`Current User: ${JSON.stringify(currentUser, null, 4)}`);
+        console.log(`Current User: ${currentUser.uid}`);
         climbList.push(this.id);
+        console.log(`climblist ${climbList}`);
         db.collection('usersClimbs')
                 .doc(currentUser.uid)
                 .set({

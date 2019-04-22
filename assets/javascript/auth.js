@@ -3,6 +3,7 @@ const signOutBtn = document.getElementById('signOut');
 const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
+const savedDataDiv = document.getElementById('savedDataDiv');
 const createForm = document.querySelector('#addClimb');
 let currentUser = {};
 // Initialize App
@@ -88,7 +89,32 @@ function loadData(data) {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
-
+function loadSavedClimbs(data) {
+        savedDataDiv.innerHTML = '';
+        console.log('loading Saved Climbs');
+        if (data) {
+                data.forEach(item => {
+                        const climb = item.data();
+                        const li = document.createElement('li');
+                        li.innerHTML = `<div class="climbDeets">
+                        </div>
+                        <div>${climb.Name}</div>
+                        <div>${climb.Grade}</div>
+                        `;
+                        dataDiv.appendChild(li);
+                        const button = document.createElement('button');
+                        button.setAttribute('id', item.id);
+                        button.setAttribute('class', 'saveClimb');
+                        button.textContent = 'remove';
+                        // You made a button in a button dumby
+                        button.addEventListener('click', removeClimb);
+                        savedDataDiv.appendChild(button);
+                });
+        } else {
+                savedDataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
+        }
+}
+let savedClimbsArray = [];
 auth.onAuthStateChanged(function(user) {
         if (user) {
                 // User is signed in.
@@ -107,15 +133,19 @@ auth.onAuthStateChanged(function(user) {
                                 console.error(error);
                         }
                 );
-                // Todo load USER'S saved collection ??
-                // db.collection('userClimbs').doc(user.id).onSnapshot(
-                //         function(snapshot) {
-                //                 console.log(snapshot.docs);
-                //         },
-                //         function(error) {
-                //                 console.error(error);
-                //         }
-                // );
+                // Todo load USER'S saved collection
+                db.collection('usersClimbs')
+                        .doc(currentUser.uid)
+                        .onSnapshot(
+                                function(snapshot) {
+                                        console.log(snapshot.docs);
+                                        // loadSavedClimbs(snapshot);
+                                        savedClimbsArray = snapshot.docs;
+                                },
+                                function(error) {
+                                        console.error(error);
+                                }
+                        );
                 // If you're on account.html, load the following
                 if (welcomeSpan && createForm) {
                         welcomeSpan.innerHTML = user.displayName;
@@ -158,11 +188,12 @@ function saveClimb(event) {
         console.log('save Button');
         console.log(`Current User: ${currentUser.uid}`);
         climbList.push(this.id);
+        const newClimbList = [...new Set(climbList)];
         console.log(`climblist ${climbList}`);
         db.collection('usersClimbs')
                 .doc(currentUser.uid)
                 .set({
-                        climbList,
+                        newClimbList,
                 })
                 .catch(err => console.error(err));
 }

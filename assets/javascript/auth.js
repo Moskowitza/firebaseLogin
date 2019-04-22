@@ -156,7 +156,6 @@ function saveClimb(event) {
         event.preventDefault();
         // get current list
         console.log('save Button');
-        console.log(this.id);
         console.log(`Current User: ${currentUser.uid}`);
         climbList.push(this.id);
         console.log(`climblist ${climbList}`);
@@ -164,6 +163,6 @@ function saveClimb(event) {
                 .doc(currentUser.uid)
                 .set({
                         climbList,
-                });
-        // .catch(err => console.error(err));
+                })
+                .catch(err => console.error(err));
 }

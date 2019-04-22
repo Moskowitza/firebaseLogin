@@ -138,7 +138,7 @@ auth.onAuthStateChanged(function(user) {
                         .doc(currentUser.uid)
                         .onSnapshot(
                                 function(snapshot) {
-                                        console.log(snapshot.docs);
+                                        console.log(snapshot);
                                         // loadSavedClimbs(snapshot);
                                         savedClimbsArray = snapshot.docs;
                                 },

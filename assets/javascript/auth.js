@@ -147,6 +147,14 @@ auth.onAuthStateChanged(function(user) {
                                         console.error(error);
                                 }
                         );
+                savedClimbsArray.forEach(climb =>
+                        db
+                                .collection('climbs')
+                                .doc(climb)
+                                .onSnapshot(function(snapshot) {
+                                        console.log(`Saved Climb ${snapshot.data()}`);
+                                })
+                );
                 // If you're on account.html, load the following
                 if (welcomeSpan && createForm) {
                         welcomeSpan.innerHTML = user.displayName;

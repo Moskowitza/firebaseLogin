@@ -159,7 +159,7 @@ function saveClimb(event) {
                 .catch(err => console.error(err));
         // Then get a response from the server
         // this will run when onSnapshot runs?
-        getSavedClimbsDeets();
+        // getSavedClimbsDeets();
 }
 
 // Auth State Change listener, when user logs in

@@ -8,6 +8,7 @@ const createForm = document.querySelector('#addClimb');
 // The State of the page will have a user and savedClimbsArray
 let currentUser = {};
 let savedClimbsArray = [];
+let savedClimbObjs = [];
 // Initialize App
 // config is for connecting to the DB
 const config = {
@@ -78,9 +79,9 @@ function displayAllClimbs(data) {
                         const climb = item.data();
                         const li = document.createElement('li');
                         li.innerHTML = `<div class="climbDeets">
+                                <div>${climb.Name}</div>
+                                <div>${climb.Grade}</div>
                         </div>
-                        <div>${climb.Name}</div>
-                        <div>${climb.Grade}</div>
                         `;
                         dataDiv.appendChild(li);
                         const button = document.createElement('button');
@@ -95,22 +96,22 @@ function displayAllClimbs(data) {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
-// displaySavedClimbs takes FirestoreData and adds it to the DOM
+// displaySavedClimbs takes savedClimbObjs and adds it to the DOM
 // data === savedClimbsArray whenever called.
 function displaySavedClimbs() {
         savedDataDiv.innerHTML = '';
-        console.log('loading Saved Climbs');
-        if (savedClimbsArray.length) {
-                savedClimbsArray.forEach(climb => {
+        console.log(`loading Saved Climbs: ${savedClimbObjs}`);
+        if (savedClimbObjs.length) {
+                savedClimbObjs.forEach(climb => {
                         const li = document.createElement('li');
-                        li.innerHTML = `<div class="climbDeets">
+                        li.innerHTML = `<div class="savedClimbDeets">
+                                <div>${climb.Name}</div>
+                                <div>${climb.Grade}</div>
                         </div>
-                        <div>${climb.Name}</div>
-                        <div>${climb.Grade}</div>
                         `;
                         dataDiv.appendChild(li);
                         const button = document.createElement('button');
-                        button.setAttribute('id', item.id);
+                        button.setAttribute('id', climb.Name);
                         button.setAttribute('class', 'saveClimb');
                         button.textContent = 'remove';
                         // You made a button in a button dumby
@@ -132,6 +133,8 @@ function getSavedClimbsDeets() {
                         .onSnapshot(
                                 function(snapshot) {
                                         console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
+
+                                        savedClimbObjs = [...snapshot.data()];
                                         displaySavedClimbs();
                                 },
                                 function(err) {

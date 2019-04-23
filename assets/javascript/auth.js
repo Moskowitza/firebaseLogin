@@ -156,6 +156,7 @@ function saveClimb(event) {
                 .set({
                         savedClimbsArray,
                 })
+                .then(getSavedClimbsDeets())
                 .catch(err => console.error(err));
         // Then get a response from the server
         // this will run when onSnapshot runs?

@@ -4,3 +4,6 @@
 * {
   background: lightcyan;
 }
+#container {
+  display: flex;
+}

@@ -134,8 +134,9 @@ function getSavedClimbsDeets() {
                         .doc(climb)
                         .onSnapshot(
                                 function(snapshot) {
-                                        console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                                        savedClimbObjs.push(snapshot.data());
+                                        // console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
+                                        if (!savedClimbObjs.includes(snapshot.data()))
+                                                savedClimbObjs.push(snapshot.data());
                                         displaySavedClimbs();
                                 },
                                 function(err) {

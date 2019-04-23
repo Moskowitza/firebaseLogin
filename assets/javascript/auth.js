@@ -7,7 +7,7 @@ const savedDataDiv = document.getElementById('savedDataDiv');
 const createForm = document.querySelector('#addClimb');
 // The State of the page will have a user and savedClimbsArray
 let currentUser = {};
-const savedClimbsArray = [];
+let savedClimbsArray = [];
 // Initialize App
 // config is for connecting to the DB
 const config = {
@@ -173,21 +173,23 @@ auth.onAuthStateChanged(function(user) {
                         }
                 );
                 // Todo load USER'S saved collection
-                // Firestore,s onSnapshot takes a second cb for errors, NO CATCH
+                // Firestore,s GET takes a second cb for errors,
                 db.collection('usersClimbs')
                         .doc(currentUser.uid)
-                        .onSnapshot(
-                                function(snapshot) {
-                                        // displaySavedClimbs(snapshot);
-                                        // set savedClimbsArray to the response
-                                        savedClimbsArray.concat(snapshot.data().savedClimbsArray);
-                                        console.log(`Saved Climbs List: ${savedClimbsArray}`);
+                        .get()
+                        .then(function(doc) {
+                                if (doc.exists) {
+                                        console.log('Document data:', doc.data());
+                                        savedClimbsArray = [...doc.data().savedClimbsArray];
                                         getSavedClimbsDeets();
-                                },
-                                function(error) {
-                                        console.error(error);
+                                } else {
+                                        // doc.data() will be undefined in this case
+                                        console.log('No such document!');
                                 }
-                        );
+                        })
+                        .catch(function(error) {
+                                console.log('Error getting document:', error);
+                        });
 
                 // If you're on account.html, load the following
                 if (welcomeSpan && createForm) {

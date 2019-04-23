@@ -101,8 +101,7 @@ function displaySavedClimbs() {
         savedDataDiv.innerHTML = '';
         console.log('loading Saved Climbs');
         if (savedClimbsArray.length) {
-                savedClimbsArray.forEach(item => {
-                        const climb = item.data();
+                savedClimbsArray.forEach(climb => {
                         const li = document.createElement('li');
                         li.innerHTML = `<div class="climbDeets">
                         </div>

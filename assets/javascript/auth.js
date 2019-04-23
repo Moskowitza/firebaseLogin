@@ -1,13 +1,15 @@
-// Initialize Firebase
+// Select Dom Elements for manipulations
 const signOutBtn = document.getElementById('signOut');
 const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
 const savedDataDiv = document.getElementById('savedDataDiv');
 const createForm = document.querySelector('#addClimb');
+// The State of the page will have a user and savedClimbsArray
 let currentUser = {};
-let savedClimbsArray = [];
+const savedClimbsArray = [];
 // Initialize App
+// config is for connecting to the DB
 const config = {
         apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
         authDomain: 'loginwith-8506a.firebaseapp.com',
@@ -17,7 +19,7 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 const auth = firebase.auth();
-
+// uiConfig for using the firebase ui with google login
 const uiConfig = {
         callbacks: {
                 signInSuccessWithAuthResult(authResult, redirectUrl) {
@@ -58,14 +60,17 @@ const uiConfig = {
 const ui = new firebaseui.auth.AuthUI(auth);
 ui.start(`#firebaseui-auth-container`, uiConfig);
 
-signOutBtn.addEventListener('click', function(event) {
+// Signout Function works with firebase.auth() promise
+function signOut(event) {
         event.preventDefault();
         auth.signOut()
                 .then(() => console.log('User signed out'))
-                .then(() => window.location.replace('https://moskowitza.github.io/firebaseLogin/'));
-});
-
-function loadData(data) {
+                .then(() => window.location.replace('https://moskowitza.github.io/firebaseLogin/'))
+                .catch(err => console.error(err));
+}
+// displayAllClimbs takes FirestoreData and adds it to the DOM
+function displayAllClimbs(data) {
+        //
         dataDiv.innerHTML = '';
         console.log('load Data');
         if (data) {
@@ -90,7 +95,9 @@ function loadData(data) {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
-function loadSavedClimbs(data) {
+// displaySavedClimbs takes FirestoreData and adds it to the DOM
+// data === savedClimbsArray whenever called.
+function displaySavedClimbs(data) {
         savedDataDiv.innerHTML = '';
         console.log('loading Saved Climbs');
         if (data) {
@@ -115,18 +122,38 @@ function loadSavedClimbs(data) {
                 savedDataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
-function getSavedClimbs() {
+// When savedClimbsArry is updated, this function should be called to
+// 1- make a fb call to get details of climb
+// 2- invoke updating the dom displaySavedClimbs
+function getSavedClimbsDeets() {
         savedClimbsArray.forEach(climb =>
                 db
                         .collection('climbs')
                         .doc(climb)
                         .onSnapshot(function(snapshot) {
                                 console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                                loadSavedClimbs(snapshot);
+                                displaySavedClimbs(snapshot);
                         })
         );
 }
+// Call this function when save button is clicked
+function saveClimb(event) {
+        event.preventDefault();
+        // if this climb is not already in the savedClimbs array add it
+        if (!savedClimbsArray.includes(this.id)) savedClimbsArray.push(this.id);
+        // save the changes to firebase
+        db.collection('usersClimbs')
+                .doc(currentUser.uid)
+                .set({
+                        savedClimbsArray,
+                })
+                .catch(err => console.error(err));
+        // Then get a response from the server
+        // this will run when onSnapshot runs?
+        // getSavedClimbsDeets();
+}
 
+// Auth State Change listener, when user logs in
 auth.onAuthStateChanged(function(user) {
         if (user) {
                 // User is signed in.
@@ -139,21 +166,23 @@ auth.onAuthStateChanged(function(user) {
                 db.collection('climbs').onSnapshot(
                         function(snapshot) {
                                 console.log(snapshot.docs);
-                                loadData(snapshot);
+                                displayAllClimbs(snapshot);
                         },
                         function(error) {
                                 console.error(error);
                         }
                 );
                 // Todo load USER'S saved collection
+                // Firestore,s onSnapshot takes a second cb for errors, NO CATCH
                 db.collection('usersClimbs')
                         .doc(currentUser.uid)
                         .onSnapshot(
                                 function(snapshot) {
-                                        console.log(snapshot.data());
-                                        // loadSavedClimbs(snapshot);
-                                        savedClimbsArray = snapshot.data().newClimbList;
-                                        getSavedClimbs();
+                                        // displaySavedClimbs(snapshot);
+                                        // set savedClimbsArray to the response
+                                        savedClimbsArray.concat(snapshot.data().newClimbList);
+                                        console.log(`Saved Climbs List: ${savedClimbsArray}`);
+                                        getSavedClimbsDeets();
                                 },
                                 function(error) {
                                         console.error(error);
@@ -174,10 +203,10 @@ auth.onAuthStateChanged(function(user) {
                         createForm.classList.add('hidden');
                         welcomeSpan.innerHTML = ', login to View Documents';
                 }
-                loadData([]);
+                displayAllClimbs([]);
         }
 });
-// If on Account page and logged in
+// If on Account page createForm exists
 if (createForm) {
         createForm.addEventListener('submit', event => {
                 event.preventDefault();
@@ -194,17 +223,4 @@ if (createForm) {
         });
 }
 
-function saveClimb(event) {
-        event.preventDefault();
-        // if this climb is not already in the savedClimbs array add it
-        if (!savedClimbsArray.includes(this.id)) savedClimbsArray.push(this.id);
-
-        db.collection('usersClimbs')
-                .doc(currentUser.uid)
-                .set({
-                        savedClimbsArray,
-                })
-                .catch(err => console.error(err));
-        // Then get a response from the server
-        getSavedClimbs();
-}
+signOutBtn.addEventListener('click', signOut);

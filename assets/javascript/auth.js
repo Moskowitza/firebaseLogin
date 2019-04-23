@@ -133,7 +133,7 @@ function getSavedClimbsDeets() {
                         .onSnapshot(
                                 function(snapshot) {
                                         console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                                        savedClimbObjs.concat(snapshot.data());
+                                        savedClimbObjs.push(snapshot.data());
                                         displaySavedClimbs();
                                 },
                                 function(err) {

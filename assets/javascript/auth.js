@@ -96,6 +96,9 @@ function displayAllClimbs(data) {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
+function removeClimb() {
+        console.log('TODO, remove CLimb');
+}
 // displaySavedClimbs takes savedClimbObjs and adds it to the DOM
 // data === savedClimbsArray whenever called.
 function displaySavedClimbs() {
@@ -107,9 +110,8 @@ function displaySavedClimbs() {
                         li.innerHTML = `<div class="savedClimbDeets">
                                 <div>${climb.Name}</div>
                                 <div>${climb.Grade}</div>
-                        </div>
-                        `;
-                        dataDiv.appendChild(li);
+                        </div>`;
+                        savedDataDiv.appendChild(li);
                         const button = document.createElement('button');
                         button.setAttribute('id', climb.Name);
                         button.setAttribute('class', 'saveClimb');
@@ -119,7 +121,7 @@ function displaySavedClimbs() {
                         savedDataDiv.appendChild(button);
                 });
         } else {
-                savedDataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
+                savedDataDiv.innerHTML = `<h5>No Saved Data</h5>`;
         }
 }
 // When savedClimbsArry is updated, this function should be called to

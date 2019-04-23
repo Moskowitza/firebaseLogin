@@ -180,7 +180,7 @@ auth.onAuthStateChanged(function(user) {
                                 function(snapshot) {
                                         // displaySavedClimbs(snapshot);
                                         // set savedClimbsArray to the response
-                                        savedClimbsArray.concat(snapshot.data().newClimbList);
+                                        savedClimbsArray.concat(snapshot.data().savedClimbsArray);
                                         console.log(`Saved Climbs List: ${savedClimbsArray}`);
                                         getSavedClimbsDeets();
                                 },
@@ -223,4 +223,4 @@ if (createForm) {
         });
 }
 
-signOutBtn.addEventListener('click', signOut);
+if (signOutBtn) signOutBtn.addEventListener('click', signOut);

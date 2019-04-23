@@ -8,7 +8,7 @@ const createForm = document.querySelector('#addClimb');
 // The State of the page will have a user and savedClimbsArray
 let currentUser = {};
 let savedClimbsArray = [];
-let savedClimbObjs = [];
+const savedClimbObjs = [];
 // Initialize App
 // config is for connecting to the DB
 const config = {
@@ -133,8 +133,7 @@ function getSavedClimbsDeets() {
                         .onSnapshot(
                                 function(snapshot) {
                                         console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-
-                                        savedClimbObjs = [...snapshot.data()];
+                                        savedClimbObjs.concat(snapshot.data());
                                         displaySavedClimbs();
                                 },
                                 function(err) {

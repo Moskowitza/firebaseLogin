@@ -97,11 +97,11 @@ function displayAllClimbs(data) {
 }
 // displaySavedClimbs takes FirestoreData and adds it to the DOM
 // data === savedClimbsArray whenever called.
-function displaySavedClimbs(data) {
+function displaySavedClimbs() {
         savedDataDiv.innerHTML = '';
         console.log('loading Saved Climbs');
-        if (data) {
-                data.forEach(item => {
+        if (savedClimbsArray.length) {
+                savedClimbsArray.forEach(item => {
                         const climb = item.data();
                         const li = document.createElement('li');
                         li.innerHTML = `<div class="climbDeets">
@@ -130,10 +130,15 @@ function getSavedClimbsDeets() {
                 db
                         .collection('climbs')
                         .doc(climb)
-                        .onSnapshot(function(snapshot) {
-                                console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                                displaySavedClimbs(snapshot);
-                        })
+                        .onSnapshot(
+                                function(snapshot) {
+                                        console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
+                                        displaySavedClimbs();
+                                },
+                                function(err) {
+                                        console.error(err);
+                                }
+                        )
         );
 }
 // Call this function when save button is clicked
@@ -150,7 +155,7 @@ function saveClimb(event) {
                 .catch(err => console.error(err));
         // Then get a response from the server
         // this will run when onSnapshot runs?
-        // getSavedClimbsDeets();
+        getSavedClimbsDeets();
 }
 
 // Auth State Change listener, when user logs in
@@ -226,3 +231,15 @@ if (createForm) {
 }
 
 if (signOutBtn) signOutBtn.addEventListener('click', signOut);
+
+db.collection('usersClimbs')
+        .doc(currentUser.uid)
+        .onSnapshot(
+                function(doc) {
+                        savedClimbsArray = [...doc.data().savedClimbsArray];
+                        getSavedClimbsDeets();
+                },
+                function(err) {
+                        console.error(err);
+                }
+        );

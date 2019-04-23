@@ -132,17 +132,13 @@ function getSavedClimbsDeets() {
                 db
                         .collection('climbs')
                         .doc(climb)
-                        .onSnapshot(
-                                function(snapshot) {
-                                        // console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                                        if (!savedClimbObjs.includes(snapshot.data()))
-                                                savedClimbObjs.push(snapshot.data());
-                                        displaySavedClimbs();
-                                },
-                                function(err) {
-                                        console.error(err);
-                                }
-                        )
+                        .get()
+                        .then(function(doc) {
+                                // console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
+                                if (!savedClimbObjs.includes(doc)) savedClimbObjs.push(doc);
+                        })
+                        .then(displaySavedClimbs())
+                        .catch(err => console.error(err))
         );
 }
 // Call this function when save button is clicked
@@ -237,14 +233,14 @@ if (createForm) {
 
 if (signOutBtn) signOutBtn.addEventListener('click', signOut);
 
-db.collection('usersClimbs')
-        .doc(currentUser.uid)
-        .onSnapshot(
-                function(doc) {
-                        savedClimbsArray = [...doc.data().savedClimbsArray];
-                        getSavedClimbsDeets();
-                },
-                function(err) {
-                        console.error(err);
-                }
-        );
+// db.collection('usersClimbs')
+//         .doc(currentUser.uid)
+//         .onSnapshot(
+//                 function(doc) {
+//                         savedClimbsArray = [...doc.data().savedClimbsArray];
+//                         getSavedClimbsDeets();
+//                 },
+//                 function(err) {
+//                         console.error(err);
+//                 }
+//         );

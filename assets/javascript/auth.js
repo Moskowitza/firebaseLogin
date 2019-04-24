@@ -7,8 +7,8 @@ const savedDataDiv = document.getElementById('savedDataDiv');
 const createForm = document.querySelector('#addClimb');
 // The State of the page will have a user and savedClimbsArray
 let currentUser = {};
-let savedClimbsArray = [];
-const savedClimbObjs = [];
+let savedClimbsArray = []; // these are just the IDs we store in FB
+const savedClimbObjs = []; // here are the {climbs}themselves
 // Initialize App
 // config is for connecting to the DB
 const config = {
@@ -135,9 +135,9 @@ function getSavedClimbsDeets() {
                         .get()
                         .then(function(doc) {
                                 // console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                                if (!savedClimbObjs.includes(doc)) savedClimbObjs.push(doc);
+                                if (!savedClimbObjs.includes(doc.data())) savedClimbObjs.push(doc.data());
                         })
-                        .then(displaySavedClimbs())
+                        .then(() => displaySavedClimbs())
                         .catch(err => console.error(err))
         );
 }

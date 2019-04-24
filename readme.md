@@ -3,3 +3,5 @@
 This is a short example of how to do authentication in firebase  
 Remember to whitelist your domain
 [Demo](https://moskowitza.github.io/firebaseLogin/)
+
+To Deploy functions run `firebase deploy --only functions`

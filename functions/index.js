@@ -12,7 +12,7 @@ exports.addAdminRole = functions.https.onCall((data, context) =>
         // We need to get User and add custom claim(admin)
         admin
                 .auth()
-                .getUser(data.uid)
+                .getUser(data.email)
                 .then(user =>
                         admin.auth().setCustomUserClaims(user.uid, {
                                 admin: true,

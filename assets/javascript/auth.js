@@ -21,6 +21,7 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 const auth = firebase.auth();
+// info: https://firebase.google.com/docs/functions/callable
 const { functions } = firebase;
 
 // Add admin cloud functions
@@ -30,7 +31,7 @@ if (adminForm)
         adminForm.addEventListener('click', function(event) {
                 event.preventDefault();
                 const adminEmail = document.querySelector('#admin-email').value;
-                const addAdminRole = functions.httpsCallable('addAdminRole');
+                const addAdminRole = functions().httpsCallable('addAdminRole');
                 addAdminRole({ email: adminEmail }).then(function(res) {
                         console.log(res);
                 });

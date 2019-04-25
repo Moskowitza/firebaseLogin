@@ -33,7 +33,7 @@ if (adminForm)
                 const adminEmail = document.querySelector('#admin-email').value;
                 const addAdminRole = functions().httpsCallable('addAdminRole');
                 addAdminRole({
-                        identifier: adminEmail,
+                        uid: adminEmail,
                 }).then(function(res) {
                         console.log(res);
                 });

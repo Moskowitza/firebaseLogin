@@ -25,7 +25,7 @@ const { functions } = firebase;
 
 // Add admin cloud functions
 const adminForm = document.querySelector('.admin-actions');
-adminForm.addEventListener('click', makeadmin(event));
+if (adminForm) adminForm.addEventListener('click', makeadmin(event));
 function makeadmin(event) {
         event.preventDefault();
         const adminEmail = document.querySelector('#admin-email').value;

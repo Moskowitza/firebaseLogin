@@ -25,15 +25,16 @@ const { functions } = firebase;
 
 // Add admin cloud functions
 const adminForm = document.querySelector('.admin-actions');
-if (adminForm) adminForm.addEventListener('click', makeadmin(event));
-function makeadmin(event) {
-        event.preventDefault();
-        const adminEmail = document.querySelector('#admin-email').value;
-        const addAdminRole = functions.httpsCallable('addAdminRole');
-        addAdminRole({ email: adminEmail }).then(function(res) {
-                console.log(res);
+
+if (adminForm)
+        adminForm.addEventListener('click', function(event) {
+                event.preventDefault();
+                const adminEmail = document.querySelector('#admin-email').value;
+                const addAdminRole = functions.httpsCallable('addAdminRole');
+                addAdminRole({ email: adminEmail }).then(function(res) {
+                        console.log(res);
+                });
         });
-}
 
 // uiConfig for using the firebase ui with google login
 const uiConfig = {

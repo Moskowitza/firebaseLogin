@@ -12,16 +12,16 @@ exports.addAdminRole = functions.https.onCall((data, context) =>
         // We need to get User and add custom claim(admin)
         admin
                 .auth()
-                .getUser(data.email)
+                .getUser(data.uid)
                 .then(user =>
-                        admin.auth().setCustomUserClaims(user.email, {
+                        admin.auth().setCustomUserClaims(user.uid, {
                                 admin: true,
                         })
                 )
                 .then(() =>
                         // return user to the front end
                         ({
-                                message: `success! ${JSON.stringify(data)} has been made an admin`,
+                                message: `success! ${data.uid} has been made an admin`,
                         })
                 )
                 .catch(err => err)

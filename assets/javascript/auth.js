@@ -30,10 +30,10 @@ const adminForm = document.querySelector('.admin-actions');
 if (adminForm)
         adminForm.addEventListener('click', function(event) {
                 event.preventDefault();
-                const adminEmail = document.querySelector('#admin-email').value.trim();
+                const adminUID = document.querySelector('#admin-uid').value.trim();
                 const addAdminRole = functions().httpsCallable('addAdminRole');
                 addAdminRole({
-                        email: adminEmail,
+                        uid: adminUID,
                 }).then(function(res) {
                         console.log(res);
                 });

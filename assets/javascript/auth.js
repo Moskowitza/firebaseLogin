@@ -176,14 +176,11 @@ function saveClimb(event) {
         if (!savedClimbsArray.includes(this.id)) savedClimbsArray.push(this.id);
         // save the changes to firebase
         syncSavedClimbsArray();
-        // Then get a response from the server
-        // this will run when onSnapshot runs?
-        // getSavedClimbsDeets();
 }
 function removeClimb(event) {
         event.preventDefault();
         // get id of climb and remove it from SavedClimsbArray
-        savedClimbsArray.pop(this.id);
+        savedClimbsArray = savedClimbsArray.filter(item => item !== this.id);
         // Sync up with firestore and update the page
         syncSavedClimbsArray();
 }

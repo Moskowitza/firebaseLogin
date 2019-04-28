@@ -131,10 +131,9 @@ function displaySavedClimbs() {
                         </div>`;
                         savedDataDiv.appendChild(li);
                         const button = document.createElement('button');
-                        button.setAttribute('id', climb.Name);
+                        button.setAttribute('id', climb.id);
                         button.setAttribute('class', 'saveClimb');
                         button.textContent = 'remove';
-                        // You made a button in a button dumby
                         button.addEventListener('click', removeClimb);
                         savedDataDiv.appendChild(button);
                 });
@@ -153,8 +152,12 @@ function getSavedClimbsDeets() {
                         .doc(climb)
                         .get()
                         .then(function(doc) {
-                                // console.log(`Saved Climb ${JSON.stringify(snapshot.data(), null, 3)}`);
-                                savedClimbObjs.push(doc.data());
+                                const climbObj = {
+                                        id: climb,
+                                        Name: doc.data().Name,
+                                        Grade: doc.data().Grade,
+                                };
+                                savedClimbObjs.push(climbObj);
                         })
                         .then(() => displaySavedClimbs())
                         .catch(err => console.error(err))
@@ -179,6 +182,7 @@ function saveClimb(event) {
 }
 function removeClimb(event) {
         event.preventDefault();
+        console.log(this.id);
         // get id of climb and remove it from SavedClimsbArray
         savedClimbsArray = savedClimbsArray.filter(item => item !== this.id);
         // Sync up with firestore and update the page

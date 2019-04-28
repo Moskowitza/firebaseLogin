@@ -115,9 +115,8 @@ function displayAllClimbs(data) {
                 dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
         }
 }
-function removeClimb() {
-        console.log('TODO, remove CLimb');
-}
+// todo remove climb from user list
+
 // displaySavedClimbs takes savedClimbObjs and adds it to the DOM
 // data === savedClimbsArray whenever called.
 function displaySavedClimbs() {
@@ -161,22 +160,32 @@ function getSavedClimbsDeets() {
                         .catch(err => console.error(err))
         );
 }
+function syncSavedClimbsArray() {
+        db.collection('usersClimbs')
+                .doc(currentUser.uid)
+                .set({
+                        savedClimbsArray,
+                })
+                .then(getSavedClimbsDeets()) // then get the deets
+                .catch(err => console.error(err));
+}
 // Call this function when save button is clicked
 function saveClimb(event) {
         event.preventDefault();
         // if this climb is not already in the savedClimbs array add it
         if (!savedClimbsArray.includes(this.id)) savedClimbsArray.push(this.id);
         // save the changes to firebase
-        db.collection('usersClimbs')
-                .doc(currentUser.uid)
-                .set({
-                        savedClimbsArray,
-                })
-                .then(getSavedClimbsDeets())
-                .catch(err => console.error(err));
+        syncSavedClimbsArray();
         // Then get a response from the server
         // this will run when onSnapshot runs?
         // getSavedClimbsDeets();
+}
+function removeClimb(event) {
+        event.preventDefault();
+        // get id of climb and remove it from SavedClimsbArray
+        savedClimbsArray.pop(this.id);
+        // Sync up with firestore and update the page
+        syncSavedClimbsArray();
 }
 
 // Auth State Change listener, when user logs in

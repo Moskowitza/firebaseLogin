@@ -1,5 +1,4 @@
 import { db, auth, functions, ui, uiConfig } from './config.js';
-import { showModal } from './index.js';
 // Select Dom Elements for manipulations
 const signOutBtn = document.getElementById('signOut');
 const authWidget = document.getElementById('firebaseui-auth-container');
@@ -12,8 +11,18 @@ let currentUser = {};
 let savedClimbsArray = []; // these are just the IDs we store in FB
 let savedClimbObjs = []; // here are the {climbs}themselves
 const loginDiv = document.getElementById('login');
+
+function showModal(event) {
+  event.preventDefault();
+  console.log('fire off modal');
+  //   noUserNav.setAttribute('class', 'hidden');
+  const modal = document.createElement('div');
+  modal.setAttribute('id', 'firebaseui-auth-container');
+  document.body.append(modal);
+  ui.start(`#firebaseui-auth-container`, uiConfig);
+}
 loginDiv.addEventListener('click', showModal);
-ui.start(`#firebaseui-auth-container`, uiConfig);
+
 const adminForm = document.querySelector('.admin-actions');
 
 if (adminForm)

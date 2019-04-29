@@ -18,7 +18,7 @@ body {
   display: flex;
 }
 nav ul {
-  display: inline;
+  display: inline-block;
   display: flex;
   text-decoration: none;
   list-style: none;
@@ -31,4 +31,9 @@ li {
 }
 #login:hover {
   color: red;
+}
+header {
+  background: orange;
+  display: flex;
+  align-items: flex-end;
 }

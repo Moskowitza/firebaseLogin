@@ -13,9 +13,32 @@
     <link type="text/css" rel="stylesheet" href="assets/stylesheets/main.css" />
   </head>
   <body>
-    <div id="firebaseui-auth-container"></div>
-    <button id="signOut">Sign Out</button>
-    <div id="loader">...loading</div>
+    <header>
+      <div id="logo">RockBook</div>
+      <nav id="noUser">
+        <ul>
+          <li>About</li>
+          <li>Find Climbs</li>
+          <li>Hmm</li>
+        </ul>
+        <div id="login">
+          <div id="firebaseui-auth-container" class="hidden"></div>
+        </div>
+      </nav>
+    </header>
+    <nav id="user" class="hidden">
+      <ul>
+        <li>About</li>
+        <li>Find Climbs</li>
+        <li>Hmm</li>
+      </ul>
+      <div id="login">
+        <button id="signOut">Sign Out</button>
+      </div>
+    </nav>
+
+    <div id="splash"></div>
+    <footer>&copy 2019 Aaron Moskowitz</footer>
 
     <!-- Run After Body Loads -->
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>

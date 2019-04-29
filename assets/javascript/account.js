@@ -1,16 +1,67 @@
-import { db, auth, functions, ui, uiConfig } from './config.js';
+const config = {
+  apiKey: 'AIzaSyDJnxX7y9ku7neALQG2xTqZ9tByFOfYfwo',
+  authDomain: 'loginwith-8506a.firebaseapp.com',
+  databaseURL: 'https://loginwith-8506a.firebaseio.com',
+  projectId: 'loginwith-8506a',
+};
+firebase.initializeApp(config);
+const db = firebase.firestore();
+const auth = firebase.auth();
+// info: https://firebase.google.com/docs/functions/callable
+const { functions } = firebase;
+
+const uiConfig = {
+  callbacks: {
+    signInSuccessWithAuthResult(authResult, redirectUrl) {
+      // console.log(`authResult: ${JSON.parse(authResult)}`);
+      // console.log(`redirectUrl: ${JSON.parse(redirectUrl)}`);
+      const { user } = authResult;
+      const { credential } = authResult;
+      const { isNewUser } = authResult.additionalUserInfo;
+      const { providerId } = authResult.additionalUserInfo;
+      const { operationType } = authResult;
+      // Do something with the returned AuthResult.
+      // document.getElementById('userName').innerText = user;
+      // Return type determines whether we continue the redirect automatically
+      // console.log(`user ${JSON.parse(user)}`);
+      // or whether we leave that to developer to handle.
+      return true;
+    },
+    signInFailure(error) {
+      // Some unrecoverable error occurred during sign-in.
+      // Return a promise when error handling is completed and FirebaseUI
+      // will reset, clearing any UI. This commonly occurs for error code
+      // 'firebaseui/anonymous-upgrade-merge-conflict' when merge conflict
+      // occurs. Check below for more details on this.
+      return handleUIError(error);
+    },
+    uiShown() {
+      // The widget is rendered.
+      // Hide the loader.
+      // document.getElementById('loader').style.display = 'none';
+    },
+  },
+  // signInFlow: 'popup',
+  signInSuccessUrl: 'https://moskowitza.github.io/firebaseLogin/account.html',
+  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  tosUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
+  privacyPolicyUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
+};
+
+const ui = new firebaseui.auth.AuthUI(auth);
 // Select Dom Elements for manipulations
 const signOutBtn = document.getElementById('signOut');
 const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
 const savedDataDiv = document.getElementById('savedDataDiv');
-const createForm = document.querySelector('#addClimb');
+const createForm = document.getElementById('#addClimb');
+const loginDiv = document.getElementById('login');
+
 // The State of the page will have a user and savedClimbsArray
 let currentUser = {};
 let savedClimbsArray = []; // these are just the IDs we store in FB
 let savedClimbObjs = []; // here are the {climbs}themselves
-const loginDiv = document.getElementById('login');
 
 function showModal(event) {
   event.preventDefault();
@@ -164,7 +215,6 @@ auth.onAuthStateChanged(function(user) {
         console.error(error);
       }
     );
-    // Todo load USER'S saved collection
     // Firestore,s GET takes a second cb for errors,
     db.collection('usersClimbs')
       .doc(currentUser.uid)

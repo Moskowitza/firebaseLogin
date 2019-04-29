@@ -7,7 +7,7 @@ const loginModal = document.getElementById('firebaseui-auth-container');
 function showModel(event) {
   event.preventDefault();
   console.log('fire off modal');
-  noUserNav.setAttribute('class', hidden);
+  //   noUserNav.setAttribute('class', 'hidden');
   const modal = document.createElement('div');
   modal.setAttribute('id', 'firebaseui-auth-container');
   document.body.append(modal);

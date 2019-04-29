@@ -13,28 +13,37 @@
     <link type="text/css" rel="stylesheet" href="assets/stylesheets/main.css" />
   </head>
   <body>
-<!-- Make Admin -->
-    <form class="center-align admin-actions" style="margin:40px auto; max-width:300px;">
-      <input type="email" placeholder="User UID" id="admin-uid" required/>
+    <!-- Make Admin -->
+    <form
+      class="center-align admin-actions"
+      style="margin:40px auto; max-width:300px;"
+    >
+      <input type="email" placeholder="User UID" id="admin-uid" required />
       <button class="">Make Admin</button>
     </form>
 
-    <div id="welcome">Welcome <span id="userName"></span></div>
+    <div id="welcome">
+      Welcome
+      <span id="userName"></span>
+    </div>
+    <div id="signIn"></div>
     <div id="firebaseui-auth-container"></div>
     <button id="signOut">Sign Out</button>
     <div id="loader">...loading</div>
     <div id="container">
-      <div id="allClimbs">All Listed Climbs
+      <div id="allClimbs">
+        All Listed Climbs
         <ul id="dataDiv" class="hidden"></ul>
       </div>
-      <div id="savedClimbs"> Saved Climbs
+      <div id="savedClimbs">
+        Saved Climbs
         <ul id="savedDataDiv"></ul>
       </div>
     </div>
     <form id="addClimb" onsubmit="return false">
-      <label for="climbName">Climb Name:
+      <label for="climbName">Climb Name:</label>
       <input type="text" name="climbName" id="climbName" />
-      <label for="climbGrade">Climb Grade:
+      <label for="climbGrade">Climb Grade:</label>
       <input type="text" name="climbGrade" id="climbGrade" />
       <button type="submit">Submit form</button>
     </form>
@@ -47,6 +56,6 @@
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 
   <script type="module" src="assets/javascript/config.js"></script>
-  <script src="assets/javascript/account.js"></script>
-  <script src="assets/javascript/index.js"></script>
+  <script type="module" src="assets/javascript/account.js"></script>
+  <script type="module" src="assets/javascript/index.js"></script>
 </html>

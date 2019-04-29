@@ -38,9 +38,10 @@ export const uiConfig = {
     uiShown() {
       // The widget is rendered.
       // Hide the loader.
-      document.getElementById('loader').style.display = 'none';
+      // document.getElementById('loader').style.display = 'none';
     },
   },
+  signInFlow: 'popup',
   signInSuccessUrl: 'https://moskowitza.github.io/firebaseLogin/account.html',
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
   tosUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',

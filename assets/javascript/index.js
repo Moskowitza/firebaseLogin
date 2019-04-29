@@ -1,5 +1,3 @@
-import { ui, uiConfig } from './config.js';
-
 export const showModal = function(event) {
   event.preventDefault();
   console.log('fire off modal');

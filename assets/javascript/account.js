@@ -1,5 +1,5 @@
 import { db, auth, functions, ui, uiConfig } from './config.js';
-import showModal from './index.js';
+import { showModal } from './index.js';
 // Select Dom Elements for manipulations
 const signOutBtn = document.getElementById('signOut');
 const authWidget = document.getElementById('firebaseui-auth-container');

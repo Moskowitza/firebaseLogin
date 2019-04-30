@@ -65,9 +65,9 @@ function showModal(event) {
   event.preventDefault();
   console.log('fire off modal');
   //   noUserNav.setAttribute('class', 'hidden');
-  authWidget.removeClass('hidden');
-  ui.start(`#firebaseui-auth-container`, uiConfig);
+  authWidget.removeAttribute('class');
 }
+ui.start(`#firebaseui-auth-container`, uiConfig);
 
 loginDiv.addEventListener('click', showModal);
 

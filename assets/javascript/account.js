@@ -46,7 +46,7 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const { functions } = firebase;
 const ui = new firebaseui.auth.AuthUI(auth);
-let authWidget;
+const authWidget = document.getElementById('firebaseui-auth-container');
 
 // Select Dom Elements for manipulations
 const signOutBtn = document.getElementById('signOut');
@@ -65,9 +65,7 @@ function showModal(event) {
   event.preventDefault();
   console.log('fire off modal');
   //   noUserNav.setAttribute('class', 'hidden');
-  authWidget = document.createElement('div');
-  authWidget.setAttribute('id', 'firebaseui-auth-container');
-  document.body.append(authWidget);
+  authWidget.removeClass('hidden');
   ui.start(`#firebaseui-auth-container`, uiConfig);
 }
 

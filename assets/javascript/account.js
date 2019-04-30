@@ -4,12 +4,6 @@ const config = {
   databaseURL: 'https://loginwith-8506a.firebaseio.com',
   projectId: 'loginwith-8506a',
 };
-firebase.initializeApp(config);
-const db = firebase.firestore();
-const auth = firebase.auth();
-// info: https://firebase.google.com/docs/functions/callable
-const { functions } = firebase;
-
 const uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult(authResult, redirectUrl) {
@@ -47,11 +41,15 @@ const uiConfig = {
   tosUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
   privacyPolicyUrl: 'https://moskowitza.github.io/firebaseLogin/privacy.html',
 };
-
+firebase.initializeApp(config);
+const db = firebase.firestore();
+const auth = firebase.auth();
+const { functions } = firebase;
 const ui = new firebaseui.auth.AuthUI(auth);
+let authWidget;
+
 // Select Dom Elements for manipulations
 const signOutBtn = document.getElementById('signOut');
-const authWidget = document.getElementById('firebaseui-auth-container');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
 const savedDataDiv = document.getElementById('savedDataDiv');
@@ -67,11 +65,12 @@ function showModal(event) {
   event.preventDefault();
   console.log('fire off modal');
   //   noUserNav.setAttribute('class', 'hidden');
-  const modal = document.createElement('div');
-  modal.setAttribute('id', 'firebaseui-auth-container');
-  document.body.append(modal);
+  authWidget = document.createElement('div');
+  authWidget.setAttribute('id', 'firebaseui-auth-container');
+  document.body.append(authWidget);
   ui.start(`#firebaseui-auth-container`, uiConfig);
 }
+
 loginDiv.addEventListener('click', showModal);
 
 const adminForm = document.querySelector('.admin-actions');
@@ -268,15 +267,3 @@ if (createForm) {
 }
 
 if (signOutBtn) signOutBtn.addEventListener('click', signOut);
-
-// db.collection('usersClimbs')
-//         .doc(currentUser.uid)
-//         .onSnapshot(
-//                 function(doc) {
-//                         savedClimbsArray = [...doc.data().savedClimbsArray];
-//                         getSavedClimbsDeets();
-//                 },
-//                 function(err) {
-//                         console.error(err);
-//                 }
-//         );

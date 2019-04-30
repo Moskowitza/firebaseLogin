@@ -54,24 +54,14 @@ const signOutBtn = document.getElementById('signOut');
 const welcomeSpan = document.getElementById('userName');
 const dataDiv = document.getElementById('dataDiv');
 const savedDataDiv = document.getElementById('savedDataDiv');
-const createForm = document.getElementById('#addClimb');
+const createForm = document.getElementById('addClimb');
 const loginDiv = document.getElementById('login');
+const adminForm = document.querySelector('.admin-actions');
 
 // The State of the page will have a user and savedClimbsArray
 let currentUser = {};
 let savedClimbsArray = []; // these are just the IDs we store in FB
 let savedClimbObjs = []; // here are the {climbs}themselves
-
-function showModal(event) {
-  event.preventDefault();
-  console.log('fire off modal');
-  //   noUserNav.setAttribute('class', 'hidden');
-  authWidget.removeAttribute('class');
-}
-
-loginDiv.addEventListener('click', showModal);
-
-const adminForm = document.querySelector('.admin-actions');
 
 if (adminForm)
   adminForm.addEventListener('click', function(event) {

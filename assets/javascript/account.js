@@ -46,8 +46,9 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const { functions } = firebase;
 const ui = new firebaseui.auth.AuthUI(auth);
-const authWidget = document.getElementById('firebaseui-auth-container');
+ui.start(`#firebaseui-auth-container`, uiConfig);
 
+const authWidget = document.getElementById('firebaseui-auth-container');
 // Select Dom Elements for manipulations
 const signOutBtn = document.getElementById('signOut');
 const welcomeSpan = document.getElementById('userName');
@@ -67,7 +68,6 @@ function showModal(event) {
   //   noUserNav.setAttribute('class', 'hidden');
   authWidget.removeAttribute('class');
 }
-ui.start(`#firebaseui-auth-container`, uiConfig);
 
 loginDiv.addEventListener('click', showModal);
 
@@ -194,6 +194,26 @@ function removeClimb(event) {
 }
 
 // Auth State Change listener, when user logs in
+
+// If on Account page createForm exists
+if (createForm) {
+  createForm.addEventListener('submit', event => {
+    event.preventDefault();
+    console.log(`adding ${createForm.climbName.value}`);
+    db.collection('climbs')
+      .add({
+        Name: createForm.climbName.value,
+        Grade: createForm.climbGrade.value,
+      })
+      .then(() => {
+        createForm.reset();
+      })
+      .catch(err => console.error(err));
+  });
+}
+
+if (signOutBtn) signOutBtn.addEventListener('click', signOut);
+
 auth.onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
@@ -247,21 +267,3 @@ auth.onAuthStateChanged(function(user) {
     displayAllClimbs([]);
   }
 });
-// If on Account page createForm exists
-if (createForm) {
-  createForm.addEventListener('submit', event => {
-    event.preventDefault();
-    console.log(`adding ${createForm.climbName.value}`);
-    db.collection('climbs')
-      .add({
-        Name: createForm.climbName.value,
-        Grade: createForm.climbGrade.value,
-      })
-      .then(() => {
-        createForm.reset();
-      })
-      .catch(err => console.error(err));
-  });
-}
-
-if (signOutBtn) signOutBtn.addEventListener('click', signOut);

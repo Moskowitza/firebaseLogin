@@ -22,3 +22,14 @@ Running on Github Pages
 [Demo](https://moskowitza.github.io/firebaseLogin/)
 
 To Deploy functions run `firebase deploy --only functions`
+
+For local development
+`firebase serve --only hosting`
+
+SASS
+
+## to compile sass
+
+```
+sass --watch assets/stylesheets/index.scss assets/stylesheets/index.css
+```

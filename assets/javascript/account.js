@@ -88,24 +88,28 @@ function signOut(event) {
 function displayAllClimbs(data) {
   //
   dataDiv.innerHTML = '';
+  const ul = document.createElement('ul');
+  ul.classList.add('list-group');
   console.log('load Data');
   if (data) {
     data.forEach(item => {
       const climb = item.data();
       const li = document.createElement('li');
+      li.classList.add('list-group-item');
       li.innerHTML = `<div class="climbDeets">
-                                <div>${climb.Name}</div>
-                                <div>${climb.Grade}</div>
+                                <p>${climb.Name}</p>
+                                <p>${climb.Grade}</p>
                         </div>
                         `;
-      dataDiv.appendChild(li);
+
       const button = document.createElement('button');
       button.setAttribute('id', item.id);
       button.setAttribute('class', 'saveClimb');
       button.textContent = 'save';
       // You made a button in a button dumby
       button.addEventListener('click', saveClimb);
-      dataDiv.appendChild(button);
+      li.appendChild(button);
+      ul.appendChild(li);
     });
   } else {
     dataDiv.innerHTML = `<h5>You Are Not Logged In</h5>`;
